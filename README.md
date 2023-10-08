@@ -54,9 +54,13 @@ This is a non-commercial project and it is free to everyone
 Feel free to contact the authors for support
 
 🌟 GitHub: 
-    [TrangVuong2810](https://github.com/TrangVuong2810)
-    [NGOCLINH-NLINH](https://github.com/NGOCLINH-NLINH)
+
++ [TrangVuong2810](https://github.com/TrangVuong2810)
+    
++ [NGOCLINH-NLINH](https://github.com/NGOCLINH-NLINH)
 
 🌟 Email: 
-    trangvuong2810@gmail.com
-    nngoclinh.2202@gmail.com
+
++ trangvuong2810@gmail.com
+    
++ nngoclinh.2202@gmail.com
