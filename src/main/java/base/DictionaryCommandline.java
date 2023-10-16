@@ -6,6 +6,8 @@ import org.controlsfx.control.tableview2.filter.filtereditor.SouthFilter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static base.DictionaryManagement.*;
+
 public class DictionaryCommandline extends Dictionary{
     public static void showAllWords() {
         System.out.printf("%-5s %c %-20s %c %-20s %n", "No", '|' ,"English", '|', "Vietnamese");
@@ -84,7 +86,7 @@ public class DictionaryCommandline extends Dictionary{
         Scanner scanner = new Scanner(System.in);
         String word = scanner.nextLine().toLowerCase();
         int index = binarySearch(0, vocabulary.size() - 1, word);
-        if (DictionaryManagement.dictionaryLookup(word, index)) {
+        if (dictionaryLookup(word, index)) {
             System.out.println("Nghĩa của từ: " + vocabulary.get(index).getWord_explain());
         }
         else {
@@ -92,7 +94,63 @@ public class DictionaryCommandline extends Dictionary{
         }
     }
     public static void dictionaryAdvanced() {
+        Scanner scanner = new Scanner(System.in);
+        boolean exit = false;
+        do {
+            try {
+                System.out.println();
+                System.out.println("-----------------------------------------");
+                System.out.println("Welcome to My Application!");
+                System.out.println("[0] Exit\n"
+                        + "[1] Add\n"
+                        + "[2] Remove\n"
+                        + "[3] Update\n"
+                        + "[4] Display\n"
+                        + "[5] Lookup\n"
+                        + "[6] Search\n"
+                        + "[7] Game\n"
+                        + "[8] Import from file\n"
+                        + "[9] Export to file\n");
+                System.out.print("Your action: ");
 
+                int userAction = scanner.nextInt();
+                if(userAction == 0) {
+                    exit = true;
+                    // System.exit(0);
+                } else if (userAction == 1) {
+                    scanner.nextLine();
+                    String newWord_target = scanner.nextLine();
+                    String newWord_explain = scanner.nextLine();
+                    addWord(newWord_target, newWord_explain);
+                } else if (userAction == 2) {
+                    scanner.nextLine();
+                    String delWord = scanner.nextLine();
+                    removeWord(delWord);
+                } else if (userAction == 3) {
+                    scanner.nextLine();
+                    String newWord_target = scanner.nextLine();
+                    String newWord_explain = scanner.nextLine();
+                    modifyWord(newWord_target, newWord_explain);
+                } else if (userAction == 4) {
+                    showAllWords();
+                } else if (userAction == 5) {
+                    dictionarySearcher();
+                } else if (userAction == 6) {
+                    dictionarySearcher();
+                } else if (userAction == 7) {
+                    System.out.println("No game for now");
+                } else if (userAction == 8) {
+                    insertFromFile();
+                } else if (userAction == 9) {
+                    dictionaryExportToFile();
+                }
+                else {
+                    exit = true;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } while(!exit);
     }
 
     /** test. */
@@ -100,7 +158,7 @@ public class DictionaryCommandline extends Dictionary{
         DictionaryManagement.insertFromFile();
         //DictionaryManagement.addWord("moon", "mặt trời");
         DictionaryManagement.modifyWord("moon", "mặt trăng");
-        DictionaryManagement.dictionaryExportToFile();
+        dictionaryExportToFile();
         //dictionarySearcher();
     }
 }
