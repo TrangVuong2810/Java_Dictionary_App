@@ -12,12 +12,12 @@
       <HBox spacing="10.0" VBox.vgrow="ALWAYS">
          <children>
             <Region minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" HBox.hgrow="ALWAYS" />
-            <Button fx:id="bookmarkButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="//b" textAlignment="CENTER" />
-            <Button fx:id="editButton" ellipsisString="E..." minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="//edit" textAlignment="CENTER" />
-            <Button fx:id="deleteButton" alignment="CENTER" ellipsisString="D..." minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="50.0" prefWidth="50.0" text="//del" textAlignment="CENTER" />
+            <Button fx:id="bookmarkButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#bookmarkWord" prefHeight="50.0" prefWidth="50.0" text="//b" textAlignment="CENTER" />
+            <Button fx:id="editButton" ellipsisString="E..." minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#editWord" prefHeight="50.0" prefWidth="50.0" text="//edit" textAlignment="CENTER" />
+            <Button fx:id="deleteButton" alignment="CENTER" ellipsisString="D..." minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#deleteWord" prefHeight="50.0" prefWidth="50.0" text="//del" textAlignment="CENTER" />
          </children>
       </HBox>
-      <Label text="word" />
+      <Label fx:id="wordLabel" text="word" />
       <HBox prefWidth="200.0" VBox.vgrow="ALWAYS">
          <children>
             <Button fx:id="pronunButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="//pronun" />
@@ -27,7 +27,7 @@
       <VBox VBox.vgrow="ALWAYS">
          <children>
             <Label text="//type" VBox.vgrow="ALWAYS" />
-            <TextArea VBox.vgrow="ALWAYS" />
+            <TextArea fx:id="wordMeaning" VBox.vgrow="ALWAYS" />
          </children>
       </VBox>
    </children>

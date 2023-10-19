@@ -28,6 +28,9 @@ public class HomescreenController implements Initializable {
 
 
     @FXML
+    private LookupController lookupController;
+
+    @FXML
     private Node lookupScene;
     @FXML
     private Node historyScene;
@@ -49,6 +52,8 @@ public class HomescreenController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        lookupController.search();
     }
 
     public void setHistoryScene() {
@@ -96,7 +101,7 @@ public class HomescreenController implements Initializable {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("lookup.fxml"));
             lookupScene = fxmlLoader.load();
-//            searchController = fxmlLoader.getController();
+            lookupController = fxmlLoader.getController();
         } catch (Exception e) {
             e.printStackTrace();
         }
