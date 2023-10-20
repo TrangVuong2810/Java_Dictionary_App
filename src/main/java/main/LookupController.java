@@ -19,6 +19,10 @@ public class LookupController {
         }
     }
 
+    public void setUp() {
+        searchCompController.setUp();
+    }
+
     public void search() {
         searchCompController.search();
     }

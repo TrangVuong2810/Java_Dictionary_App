@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.media.*;
 
 import java.io.*;
@@ -28,15 +29,18 @@ public class WordCompController {
     private TextArea wordMeaning;
     @FXML
     private Label wordLabel;
+    @FXML
+    private TextField ipaLabel;
+    @FXML
+    private Label wordTypeLabel;
 
     private static final String AUDIO_PATH = "src/main/resource/audio/audio";
 
     public void displayWord(String selectedWord) {
-
         wordLabel.setText(selectedWord);
 
         try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)){
-            String sql = "SELECT word_explain FROM vocabulary WHERE word_target = ?";
+            String sql = "SELECT * FROM vocabulary WHERE word_target = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, selectedWord);
 
@@ -44,9 +48,15 @@ public class WordCompController {
 
             if (resultSet.next()) {
                 String meaning = resultSet.getString("word_explain");
+                String ipa = "/" + resultSet.getString("ipa") + "/";
+                String wordType = resultSet.getString("word_type");
+                ipaLabel.setText(ipa);
                 wordMeaning.setText(meaning);
+                wordTypeLabel.setText(wordType);
             } else {
+                ipaLabel.setText("Không tìm thấy phát âm cho từ này");
                 wordMeaning.setText("Không tìm thấy nghĩa cho từ này.");
+                wordTypeLabel.setText("Không tìm thấy loại từ cho từ này");
             }
 
         } catch (Exception e) {
@@ -55,15 +65,11 @@ public class WordCompController {
 
         pronunButton.setOnMouseClicked(event -> {
             if (event.getClickCount() == 1) {
-                System.out.println("VOICE CLICKED");
                 playPronunAudio(selectedWord);
             }
         });
     }
 
-    private void displayWordMeaning(String selectedWord) {
-
-    }
 
     public void bookmarkWord() {
 

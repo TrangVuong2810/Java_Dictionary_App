@@ -53,6 +53,7 @@ public class HomescreenController implements Initializable {
             e.printStackTrace();
         }
 
+        lookupController.setUp();
         lookupController.search();
     }
 

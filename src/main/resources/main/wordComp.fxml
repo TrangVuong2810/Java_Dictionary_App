@@ -21,12 +21,12 @@
       <HBox prefWidth="200.0" VBox.vgrow="ALWAYS">
          <children>
             <Button fx:id="pronunButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="//pronun" />
-            <TextField HBox.hgrow="ALWAYS" />
+            <TextField fx:id="ipaLabel" HBox.hgrow="ALWAYS" />
          </children>
       </HBox>
       <VBox VBox.vgrow="ALWAYS">
          <children>
-            <Label text="//type" VBox.vgrow="ALWAYS" />
+            <Label fx:id="wordTypeLabel" text="//type" VBox.vgrow="ALWAYS" />
             <TextArea fx:id="wordMeaning" VBox.vgrow="ALWAYS" />
          </children>
       </VBox>

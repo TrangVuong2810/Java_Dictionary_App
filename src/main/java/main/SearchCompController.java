@@ -1,5 +1,6 @@
 package main;
 
+import base.TrieNode;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableListBase;
@@ -11,6 +12,8 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SearchCompController {
     protected static final String DB_URL = "jdbc:mysql://localhost:3307/dictionary";
@@ -26,7 +29,7 @@ public class SearchCompController {
     @FXML
     private TextField textField = new TextField();
 
-    private final ObservableList<String> wordList = FXCollections.observableArrayList();;
+    private final ObservableList<String> wordList = FXCollections.observableArrayList();
 
     public SearchCompController() {
         try {
@@ -36,6 +39,7 @@ public class SearchCompController {
             e.printStackTrace();
         }
     }
+
     public void search() {
         textField.setOnKeyReleased(event -> {
             String searchQuery = textField.getText();
@@ -43,22 +47,20 @@ public class SearchCompController {
         });
     }
 
+    public void setUp() {
+        searchWords("");
+    }
+
     private void searchWords(String searchQuery) {
         wordList.clear();
 
-        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
-            String sql = "SELECT word_target FROM vocabulary WHERE word_target LIKE ?";
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, searchQuery + "%");
+        try  {
+            List<String> matchedWords = new ArrayList<>();
+            matchedWords = getAllWordWithPrefix(DictionaryApplication.wordTrie.getRoot(), searchQuery);
 
-            ResultSet resultSet = statement.executeQuery();
-
-            while (resultSet.next()) {
-                String word_targetString = resultSet.getString("word_target");
-                wordList.add(word_targetString);
-            }
+            wordList.addAll(matchedWords);
             listView.setItems(wordList);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -72,6 +74,37 @@ public class SearchCompController {
 
     }
 
+    private List<String> getAllWordWithPrefix(TrieNode node, String prefix) {
 
+        List<String> matchedWords = new ArrayList<>();
+
+        if(node == null) return matchedWords;
+
+        recurseNode(node, prefix, "", matchedWords, true);
+
+        return matchedWords;
+
+    }
+
+    private void recurseNode(TrieNode node, String prefix, String currentWord,
+                             List<String> words, boolean matches) {
+
+        if(node.isEndOfWord() && matches) {
+            words.add(currentWord);
+        }
+
+        if (matches) {
+            for(Character c : node.getChildren().keySet()) {
+
+                String newWord = currentWord + c;
+
+                boolean newMatches = newWord.startsWith(prefix);
+
+                recurseNode(node.getChildren().get(c), prefix, newWord, words, newMatches);
+
+            }
+        }
+
+    }
 
 }
