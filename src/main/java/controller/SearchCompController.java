@@ -1,17 +1,15 @@
-package main;
+package controller;
 
 import base.TrieNode;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableListBase;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import main.DictionaryApplication;
 
-import java.io.IOException;
-import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 

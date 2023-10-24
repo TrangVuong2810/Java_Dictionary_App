@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox>
+         <children>
+            <Label text="Paragraph Translate">
+               <VBox.margin>
+                  <Insets left="20.0" top="10.0" />
+               </VBox.margin>
+            </Label>
+            <HBox VBox.vgrow="ALWAYS">
+               <children>
+                  <VBox>
+                     <children>
+                        <HBox>
+                           <children>
+                              <ChoiceBox HBox.hgrow="ALWAYS" />
+                              <Region HBox.hgrow="ALWAYS" />
+                              <Button contentDisplay="CENTER" mnemonicParsing="false" text="Button" HBox.hgrow="ALWAYS" />
+                           </children>
+                        </HBox>
+                        <TextArea fx:id="inputTextArea" VBox.vgrow="ALWAYS" />
+                     </children>
+                  </VBox>
+                  <Button mnemonicParsing="false" text="Button" />
+                  <VBox>
+                     <children>
+                        <HBox>
+                           <children>
+                              <ChoiceBox HBox.hgrow="ALWAYS" />
+                              <Region HBox.hgrow="ALWAYS" />
+                              <Button contentDisplay="CENTER" mnemonicParsing="false" text="Button" HBox.hgrow="ALWAYS" />
+                           </children>
+                        </HBox>
+                        <TextArea fx:id="outputTextArea" editable="false" VBox.vgrow="ALWAYS" />
+                     </children>
+                  </VBox>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</StackPane>

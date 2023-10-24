@@ -9,6 +9,8 @@ module main.dictionary_app {
     requires com.almasb.fxgl.all;
     requires java.sql;
 
-    opens main to javafx.fxml;
+    opens controller to javafx.fxml;
+    exports controller;
     exports main;
+    opens main to javafx.fxml;
 }

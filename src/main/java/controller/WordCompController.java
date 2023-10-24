@@ -1,4 +1,4 @@
-package main;
+package controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -18,7 +18,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import static main.SearchCompController.*;
+import static controller.SearchCompController.*;
 
 public class WordCompController {
     @FXML
@@ -34,10 +34,17 @@ public class WordCompController {
     @FXML
     private Label wordTypeLabel;
 
+    private MediaPlayer mediaPlayer;
+
     private static final String AUDIO_PATH = "src/main/resource/audio/audio";
 
     public void displayWord(String selectedWord) {
         wordLabel.setText(selectedWord);
+
+        Thread textToSpeechThread = new Thread(() -> {
+            getPronunAudio(selectedWord);
+        });
+        textToSpeechThread.start();
 
         try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)){
             String sql = "SELECT * FROM vocabulary WHERE word_target = ?";
@@ -65,7 +72,7 @@ public class WordCompController {
 
         pronunButton.setOnMouseClicked(event -> {
             if (event.getClickCount() == 1) {
-                playPronunAudio(selectedWord);
+                mediaPlayer.play();
             }
         });
     }
@@ -86,7 +93,7 @@ public class WordCompController {
     @FXML
     private TextArea textArea;
 
-    public void playPronunAudio(String selectedWord) {
+    public void getPronunAudio(String selectedWord) {
         String apiKey = "9296283913e24e449e7b8cfa8366c29a";
         try {
             String encodedText = URLEncoder.encode(selectedWord, "UTF-8");
@@ -108,8 +115,8 @@ public class WordCompController {
                     outputStream.write(buffer, 0, bytesRead);
                 }
 
-                MediaPlayer mediaPlayer = new MediaPlayer(new Media(audioFile.toURI().toString()));
-                mediaPlayer.play();
+                mediaPlayer = new MediaPlayer(new Media(audioFile.toURI().toString()));
+                //mediaPlayer.play();
 
                 outputStream.close();
                 inputStream.close();
