@@ -1,4 +1,4 @@
-package controller;
+package main;
 
 public class GameController {
 }

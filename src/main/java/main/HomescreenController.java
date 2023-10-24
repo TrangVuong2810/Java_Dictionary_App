@@ -1,4 +1,4 @@
-package controller;
+package main;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,6 +25,8 @@ public class HomescreenController implements Initializable {
 
     @FXML
     private LookupController lookupController;
+    @FXML
+    private ParaTransController paraTransController;
 
     @FXML
     private Node lookupScene;
@@ -91,6 +93,8 @@ public class HomescreenController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        paraTransController.run();
     }
 
     @Override
@@ -125,6 +129,7 @@ public class HomescreenController implements Initializable {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("paraTrans.fxml"));
             paraTransScene = fxmlLoader.load();
+            paraTransController = fxmlLoader.getController();
         } catch (Exception e) {
             e.printStackTrace();
         }

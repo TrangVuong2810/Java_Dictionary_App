@@ -1,4 +1,4 @@
-package controller;
+package main;
 
 import base.TrieNode;
 import javafx.collections.FXCollections;
@@ -8,7 +8,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
-import main.DictionaryApplication;
 
 import java.util.ArrayList;
 import java.util.List;

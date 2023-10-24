@@ -1,4 +1,4 @@
-package controller;
+package main;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
@@ -32,10 +32,19 @@ public class ParaTransController {
     }
 
     public void run() {
+        inputTextArea.setOnKeyReleased(event -> {
+            String searchQuery = inputTextArea.getText();
+            translate(searchQuery);
+        });
+    }
+
+    public void translate(String searchQuery) {
         Runnable translationTask = () -> {
-            // Thực hiện việc dịch văn bản ở đây
-            //String translation = performTranslation(originalText);
-            performTranslation();
+            try {
+                performTranslation(searchQuery, "en", "vn");
+            } catch (Exception e) {
+                System.out.println("ERROR IN PARA TRANS RUN");
+            }
             //outputTextArea.setText(translation);
         };
 
@@ -136,7 +145,7 @@ public class ParaTransController {
         }
     }
 
-    public static void performTranslation(String text, String sourceLang, String targetLang) throws IOException, URISyntaxException {
+    public void performTranslation(String text, String sourceLang, String targetLang) throws IOException, URISyntaxException {
         try {
             StringBuilder URLBuilder = new StringBuilder();
             URLBuilder.append("https://script.google.com/macros/s/AKfycbxpSOoe9lzov3rfNhV5qet6zAyDHvC9fbQbvhi_R_LFLSljaHe94QMStRtMmzy1Kc0g/exec");
@@ -157,12 +166,13 @@ public class ParaTransController {
             Scanner scanner = new Scanner(url.openStream());
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
-                System.out.println(line);
+                outputTextArea.setText(line);
             }
             scanner.close();
         }
         catch (Exception e) {
-
+            System.out.println("ERROR IN API GG TRANS");
+            e.printStackTrace();
         }
     }
 }

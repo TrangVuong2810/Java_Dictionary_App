@@ -1,4 +1,4 @@
-package controller;
+package main;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -18,7 +18,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import static controller.SearchCompController.*;
+import static main.SearchCompController.*;
 
 public class WordCompController {
     @FXML
