@@ -2,12 +2,14 @@ package main;
 
 import base.Trie;
 import javafx.application.Application;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.*;
+import java.util.Scanner;
 
 public class DictionaryApplication extends Application {
     public static final String DB_URL = "jdbc:mysql://localhost:3307/dictionary";
@@ -15,6 +17,9 @@ public class DictionaryApplication extends Application {
     public static final String DB_PASSWORD = "28102004";
 
     public static Trie wordTrie;
+
+    @FXML
+    private HomescreenController homescreenController;
 
     public DictionaryApplication() {
         wordTrie = new Trie();
@@ -44,11 +49,16 @@ public class DictionaryApplication extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(DictionaryApplication.class.getResource("homescreen.fxml"));
+        Scene scene = null;
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("homescreen.fxml"));
+            scene = new Scene(fxmlLoader.load());
+            homescreenController = fxmlLoader.getController();
+        } catch (Exception e) {
+            System.out.println("ERROR IN INIT HOMESCREEN");
+            e.printStackTrace();
+        }
         loadFromDatabase();
-
-        //2 last parameter == window size
-        Scene scene = new Scene(fxmlLoader.load(), 800, 600);
 
         //name of the window
         stage.setTitle("Dictionary Application");
@@ -60,6 +70,7 @@ public class DictionaryApplication extends Application {
 
         //display
         stage.show();
+        stage.setOnCloseRequest(e -> homescreenController.close());
     }
 
 

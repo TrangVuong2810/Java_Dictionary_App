@@ -42,6 +42,9 @@ public class HomescreenController implements Initializable {
     private StackPane mainPane;
     //private StackPane idk;
 
+    public void close() {
+        paraTransController.close();
+    }
     public void setLookupScreen() {
         //System.out.println("this is lookup scene");
         try {

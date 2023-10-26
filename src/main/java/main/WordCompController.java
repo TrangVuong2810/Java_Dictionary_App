@@ -36,7 +36,7 @@ public class WordCompController {
 
     private MediaPlayer mediaPlayer;
 
-    private static final String AUDIO_PATH = "src/main/resource/audio/audio";
+    private static final String AUDIO_PATH = "src/resources/audio/audio";
 
     public void displayWord(String selectedWord) {
         wordLabel.setText(selectedWord);
@@ -116,7 +116,6 @@ public class WordCompController {
                 }
 
                 mediaPlayer = new MediaPlayer(new Media(audioFile.toURI().toString()));
-                //mediaPlayer.play();
 
                 outputStream.close();
                 inputStream.close();

@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.ParaTransController">
    <children>
       <VBox>
          <children>
@@ -22,25 +22,30 @@
                      <children>
                         <HBox>
                            <children>
-                              <ChoiceBox HBox.hgrow="ALWAYS" />
+                              <Label contentDisplay="CENTER" text="Label" HBox.hgrow="ALWAYS" />
                               <Region HBox.hgrow="ALWAYS" />
-                              <Button contentDisplay="CENTER" mnemonicParsing="false" text="Button" HBox.hgrow="ALWAYS" />
+                              <Button fx:id="sourceAudioButton" contentDisplay="CENTER" mnemonicParsing="false" text="Button" HBox.hgrow="ALWAYS" />
                            </children>
                         </HBox>
-                        <TextArea fx:id="inputTextArea" VBox.vgrow="ALWAYS" />
+                        <TextArea fx:id="inputTextArea" wrapText="true" VBox.vgrow="ALWAYS" />
                      </children>
                   </VBox>
-                  <Button mnemonicParsing="false" text="Button" />
+                  <VBox>
+                     <children>
+                        <Button mnemonicParsing="false" text="Button" />
+                        <Button fx:id="translateButton" mnemonicParsing="false" text="Button" />
+                     </children>
+                  </VBox>
                   <VBox>
                      <children>
                         <HBox>
                            <children>
-                              <ChoiceBox HBox.hgrow="ALWAYS" />
+                              <Label alignment="CENTER" contentDisplay="CENTER" text="Label" textAlignment="CENTER" HBox.hgrow="ALWAYS" />
                               <Region HBox.hgrow="ALWAYS" />
-                              <Button contentDisplay="CENTER" mnemonicParsing="false" text="Button" HBox.hgrow="ALWAYS" />
+                              <Button fx:id="targetAudioButton" contentDisplay="CENTER" mnemonicParsing="false" text="Button" HBox.hgrow="ALWAYS" />
                            </children>
                         </HBox>
-                        <TextArea fx:id="outputTextArea" editable="false" VBox.vgrow="ALWAYS" />
+                        <TextArea fx:id="outputTextArea" editable="false" wrapText="true" VBox.vgrow="ALWAYS" />
                      </children>
                   </VBox>
                </children>

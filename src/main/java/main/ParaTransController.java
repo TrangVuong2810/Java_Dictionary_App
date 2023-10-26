@@ -1,6 +1,9 @@
 package main;
 
+import javafx.beans.value.ChangeListener;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -17,163 +20,220 @@ public class ParaTransController {
     private TextArea inputTextArea;
     @FXML
     private TextArea outputTextArea;
+    @FXML
+    private Button translateButton;
+    @FXML
+    private Button sourceAudioButton;
+    @FXML
+    private Button targetAudioButton;
 
-    private static final String API_ENDPOINT = "https://api.example.com/text-to-speech";
-    private static final String AUDIO_PATH = "src/main/resource/audio/ParaAudio";
+    private static final String AUDIO_PATH_EN = "src/resources/audio/ParaEN";
+    private static final String AUDIO_PATH_VI = "src/resources/audio/ParaVI";
     private ExecutorService executorService;
-    private TextToSpeechConnector textToSpeechENConnector;
-    private TextToSpeechConnector textToSpeechVNConnector;
-    private MediaPlayer mediaPlayer;
+    private MediaPlayer mediaPlayerSource;
+    private MediaPlayer mediaPlayerTarget;
 
-    public ParaTransController() {
-        executorService = Executors.newFixedThreadPool(3);
-        textToSpeechENConnector = new TextToSpeechConnector();
-        textToSpeechVNConnector = new TextToSpeechConnector();
+    public void initializeExecutorService() {
+        executorService = Executors.newFixedThreadPool(2);
     }
 
     public void run() {
-        inputTextArea.setOnKeyReleased(event -> {
-            String searchQuery = inputTextArea.getText();
-            translate(searchQuery);
+        initializeExecutorService();
+        handlePlayAudio();
+        translateButton.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 1) {
+                if (mediaPlayerTarget != null) mediaPlayerTarget.dispose();
+                if (mediaPlayerSource != null) mediaPlayerSource.dispose();
+                String searchQuery = inputTextArea.getText();
+                clearOutputTextArea();
+                translate(searchQuery);
+            }
+        });
+    }
+
+    ChangeListener<String> inputTextChangeListener = (observable, oldValue, newValue) -> {
+        if (mediaPlayerSource != null) {
+            if (mediaPlayerSource.getStatus() == MediaPlayer.Status.PLAYING) {
+                mediaPlayerSource.stop();
+            }
+            mediaPlayerSource.dispose();
+        }
+    };
+
+    public void handlePlayAudio() {
+        sourceAudioButton.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 1) {
+                inputTextArea.textProperty().removeListener(inputTextChangeListener);
+                inputTextArea.textProperty().addListener(inputTextChangeListener);
+                if (mediaPlayerSource != null) {
+                    if (mediaPlayerSource.getStatus() == MediaPlayer.Status.PLAYING) {
+                        mediaPlayerSource.stop();
+                    }
+                    mediaPlayerSource.play();
+                }
+            }
+        });
+        targetAudioButton.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 1) {
+                if (mediaPlayerTarget != null) {
+                    if (mediaPlayerTarget.getStatus() == MediaPlayer.Status.PLAYING) {
+                        mediaPlayerTarget.stop();
+                    }
+                    mediaPlayerTarget.play();
+                }
+            }
         });
     }
 
     public void translate(String searchQuery) {
         Runnable translationTask = () -> {
-            try {
-                performTranslation(searchQuery, "en", "vn");
-            } catch (Exception e) {
-                System.out.println("ERROR IN PARA TRANS RUN");
-            }
-            //outputTextArea.setText(translation);
+            performTranslation(searchQuery, "en", "vi");
         };
 
-        // Tác vụ phát ra giọng nói
         Runnable textToSpeechENTask = () -> {
-            // Thực hiện việc phát ra giọng nói từ văn bản đã dịch
-            //String translation = translationTextArea.getText();
-            //performTranslation();
-            //textToSpeechConnector.connect(translation);
+            connectTextToSpeech(searchQuery, "en-us", AUDIO_PATH_EN);
             System.out.println("TEXT - SPEECH EN");
         };
 
-        Runnable textToSpeechVNTask = () -> {
-            // Thực hiện việc phát ra giọng nói từ văn bản đã dịch
-            //String translation = translationTextArea.getText();
-            //performTranslation();
-            //textToSpeechConnector.connect(translation);
-            System.out.println("TEXT - SPEECH VN");
-        };
-
-        // Khởi chạy các tác vụ trong ExecutorService
         executorService.submit(translationTask);
         executorService.submit(textToSpeechENTask);
-        executorService.submit(textToSpeechVNTask);
 
-        // Tắt ExecutorService sau khi hoàn thành các tác vụ
-        executorService.shutdown();
     }
 
-//    public void stop() {
-//        executorService.shutdownNow();
-//    }
 
-    private String translateWord(String word) {
-        // Thực hiện kết nối với API dịch và trả về kết quả dịch
-//        try {
-//            // Tạo URL kết nối với API và truyền tham số từ cần dịch
-//            URL url = new URL(API_ENDPOINT + "?word=" + word);
-//            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-//            connection.setRequestMethod("GET");
-//
-//            // Đọc và xử lý phản hồi từ API
-//            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-//            String response = reader.readLine();
-//            System.out.println("Translation response: " + response);
-//
-//            // Đóng kết nối
-//            reader.close();
-//            connection.disconnect();
-//
-//            return response;
-//        } catch (Exception e) {
-//            System.out.println("ERROR IN TRANSLATING WORD IN PARA");
-//            e.printStackTrace();
-//        }
-
-        return "TEST PERFORM TRANSLATION";
+    public void close() {
+        executorService.shutdownNow();
+        if (mediaPlayerSource != null) {
+            if (mediaPlayerSource.getStatus() == MediaPlayer.Status.PLAYING) {
+                mediaPlayerSource.stop();
+            }
+            mediaPlayerSource.dispose();
+        }
+        if (mediaPlayerTarget != null) {
+            if (mediaPlayerTarget.getStatus() == MediaPlayer.Status.PLAYING) {
+                mediaPlayerTarget.stop();
+            }
+            mediaPlayerTarget.dispose();
+        }
+        inputTextArea.textProperty().removeListener(inputTextChangeListener);
+        System.out.println("SHUT DOWN PARA");
     }
 
-    private class TextToSpeechConnector {
-        public void connect(String text) {
-            String apiKey = "9296283913e24e449e7b8cfa8366c29a";
-            // Thực hiện kết nối với API Text-to-Speech và phát ra giọng nói
-            try {
-                String encodedText = URLEncoder.encode(text, "UTF-8");
-                String urlString = "http://api.voicerss.org/?key=" + apiKey + "&hl=en-us&src=" + encodedText;
-                URI uri = new URI(urlString);
-                URL url = uri.toURL();
+    public void connectTextToSpeech(String text, String lang, String filePath) {
+        String apiKey = "9296283913e24e449e7b8cfa8366c29a";
+        try {
+            String encodedText = URLEncoder.encode(text, "UTF-8");
+            String urlString = "http://api.voicerss.org/?key=" + apiKey + "&hl=" + lang + "&src=" + encodedText;
+            URI uri = new URI(urlString);
+            URL url = uri.toURL();
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+
+            int responseCode = connection.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                InputStream inputStream = connection.getInputStream();
+                File audioFile = new File(filePath);
+                OutputStream outputStream = new FileOutputStream(audioFile);
+
+                byte[] buffer = new byte[4096];
+                int bytesRead;
+                while ((bytesRead = inputStream.read(buffer)) != -1) {
+                    outputStream.write(buffer, 0, bytesRead);
+                }
+
+                if (filePath.equals(AUDIO_PATH_EN)) {
+                    mediaPlayerSource = new MediaPlayer(new Media(audioFile.toURI().toString()));
+                }
+                else {
+                    mediaPlayerTarget = new MediaPlayer(new Media(audioFile.toURI().toString()));
+                }
+                //mediaPlayer.play();
+
+                outputStream.close();
+                inputStream.close();
+            } else {
+                System.out.println("WAIT");
+                System.out.println("Request failed with response code: " + responseCode);
+            }
+
+            connection.disconnect();
+        } catch (Exception e) {
+            System.out.println("ERROR IN PARA AUDIO");
+            e.printStackTrace();
+        }
+    }
+
+
+    public void clearOutputTextArea() {
+        outputTextArea.clear();
+    }
+
+    public void performTranslation(String text, String sourceLang, String targetLang) {
+        try {
+            String API_URL = "https://translate.googleapis.com/translate_a/single";
+            String API_PARAMS = "?client=gtx&dt=t&ie=UTF-8&oe=UTF-8&otf=1&ssel=0&tsel=0&kc=7" +
+                    "&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss";
+            String[] sentences = text.split("\\.");
+
+            StringBuilder translationBuilder = new StringBuilder();
+
+            for (String s : sentences) {
+                String sentence = s.trim();
+                if (sentence.isEmpty()) {
+                    continue;
+                }
+                String encodedSentence = URLEncoder.encode(sentence.trim(), "UTF-8");
+                String urlStr = API_URL + API_PARAMS + "&sl=" + sourceLang + "&tl=" + targetLang + "&q=" + encodedSentence;
+
+                URL url = new URL(urlStr);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");
 
                 int responseCode = connection.getResponseCode();
                 if (responseCode == HttpURLConnection.HTTP_OK) {
                     InputStream inputStream = connection.getInputStream();
-                    File audioFile = new File(AUDIO_PATH);
-                    OutputStream outputStream = new FileOutputStream(audioFile);
-
-                    byte[] buffer = new byte[4096];
-                    int bytesRead;
-                    while ((bytesRead = inputStream.read(buffer)) != -1) {
-                        outputStream.write(buffer, 0, bytesRead);
+                    InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                    BufferedReader reader = new BufferedReader(inputStreamReader);
+                    StringBuilder response = new StringBuilder();
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        response.append(line);
                     }
-
-                    mediaPlayer = new MediaPlayer(new Media(audioFile.toURI().toString()));
-                    //mediaPlayer.play();
-
-                    outputStream.close();
+                    reader.close();
+                    inputStreamReader.close();
                     inputStream.close();
+
+                    translationBuilder.append(parseTranslation(response.toString())).append(". ");
                 } else {
                     System.out.println("Request failed with response code: " + responseCode);
                 }
-
                 connection.disconnect();
-            } catch (Exception e) {
-                System.out.println("ERROR IN PARA AUDIO");
-                e.printStackTrace();
             }
-        }
-    }
 
-    public void performTranslation(String text, String sourceLang, String targetLang) throws IOException, URISyntaxException {
-        try {
-            StringBuilder URLBuilder = new StringBuilder();
-            URLBuilder.append("https://script.google.com/macros/s/AKfycbxpSOoe9lzov3rfNhV5qet6zAyDHvC9fbQbvhi_R_LFLSljaHe94QMStRtMmzy1Kc0g/exec");
-            URLBuilder.append("?q=");
-            URLBuilder.append(URLEncoder.encode(text, StandardCharsets.UTF_8));
-            URLBuilder.append("&source=");
-            URLBuilder.append(URLEncoder.encode(sourceLang, StandardCharsets.UTF_8));
-            URLBuilder.append("&target=");
-            URLBuilder.append(URLEncoder.encode(targetLang, StandardCharsets.UTF_8));
+            String translation = translationBuilder.toString().trim();
 
-            String urlString = URLBuilder.toString();
-            URI uri = new URI(urlString);
-            URL url = uri.toURL();
+            outputTextArea.setText(translation);
+            System.out.println("TEST TRANS");
 
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
-
-            Scanner scanner = new Scanner(url.openStream());
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
-                outputTextArea.setText(line);
-            }
-            scanner.close();
-        }
-        catch (Exception e) {
-            System.out.println("ERROR IN API GG TRANS");
+            connectTextToSpeech(translation, "vi-vn", AUDIO_PATH_VI);
+        } catch (Exception e) {
+            System.out.println("ERROR IN API GG TRANS AND VI_VN AUDIO");
             e.printStackTrace();
         }
     }
+
+    private static String parseTranslation(String response) {
+        if (response.isEmpty()) {
+            return "";
+        }
+        int startIndex = response.indexOf("[[\"") + 3;
+        int endIndex = response.indexOf("\"", startIndex);
+        if (endIndex != -1) {
+            return response.substring(startIndex, endIndex);
+        } else {
+            return null;
+        }
+    }
+
 }
 

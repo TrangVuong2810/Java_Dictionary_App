@@ -46,6 +46,7 @@ public class SearchCompController {
 
     public void setUp() {
         searchWords("");
+        displayWord();
     }
 
     private void searchWords(String searchQuery) {
@@ -61,14 +62,16 @@ public class SearchCompController {
             e.printStackTrace();
         }
 
+        displayWord();
+
+    }
+    public void displayWord() {
         listView.setOnMouseClicked(event -> {
             if (event.getClickCount() == 1) {
                 String selectedWord = listView.getSelectionModel().getSelectedItem();
                 wordCompController.displayWord(selectedWord);
             }
         });
-
-
     }
 
     private List<String> getAllWordWithPrefix(TrieNode node, String prefix) {
