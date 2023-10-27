@@ -1,6 +1,6 @@
 package main;
 
-import base.TrieNode;
+import base.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -10,12 +10,15 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
+import static main.DictionaryApplication.wordHistory;
+
 public class SearchCompController {
-    protected static final String DB_URL = "jdbc:mysql://localhost:3307/dictionary";
-    protected static final String DB_USER = "root";
-    protected static final String DB_PASSWORD = "28102004";
+    public static final String DB_URL = "jdbc:mysql://localhost:3307/dictionary";
+    public static final String DB_USER = "root";
+    public static final String DB_PASSWORD = "28102004";
 
     @FXML
     private VBox wordComp;
@@ -37,41 +40,68 @@ public class SearchCompController {
         }
     }
 
-    public void search() {
+    public void search(Object collection) {
         textField.setOnKeyReleased(event -> {
             String searchQuery = textField.getText();
-            searchWords(searchQuery);
+            searchWords(searchQuery, collection);
         });
     }
 
-    public void setUp() {
-        searchWords("");
-        displayWord();
+    public void setUp(Object collection) {
+        searchWords("", collection);
+        displayWord(collection);
     }
 
-    private void searchWords(String searchQuery) {
+    private void searchWords(String searchQuery, Object collection) {
         wordList.clear();
 
         try  {
-            List<String> matchedWords = new ArrayList<>();
-            matchedWords = getAllWordWithPrefix(DictionaryApplication.wordTrie.getRoot(), searchQuery);
+            List<String> words = new ArrayList<>();
+            if (collection instanceof Trie) {
+                words = getAllWordWithPrefix(DictionaryApplication.wordTrie.getRoot(), searchQuery);
 
-            wordList.addAll(matchedWords);
+            } else if (collection instanceof WordHistoryLinkedList) {
+
+                words = getAllWordWithPrefix(wordHistory, searchQuery);
+            } else if (collection instanceof WordLinkedList) {
+                //words = getAllWordWithPrefix(wordHistory, searchQuery);
+            } else {
+                throw new IllegalArgumentException("Loại dữ liệu không được hỗ trợ");
+            }
+
+
+            wordList.addAll(words);
             listView.setItems(wordList);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        displayWord();
+        displayWord(collection);
 
     }
-    public void displayWord() {
-        listView.setOnMouseClicked(event -> {
-            if (event.getClickCount() == 1) {
-                String selectedWord = listView.getSelectionModel().getSelectedItem();
-                wordCompController.displayWord(selectedWord);
-            }
-        });
+    public void displayWord(Object collection) {
+        if (collection instanceof Trie) {
+            listView.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 1) {
+                    String selectedWord = listView.getSelectionModel().getSelectedItem();
+                    wordCompController.displayWord(selectedWord);
+
+                    wordHistory.add(selectedWord);
+                }
+            });
+        } else if (collection instanceof WordHistoryLinkedList) {
+            listView.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 1) {
+                    String selectedWord = listView.getSelectionModel().getSelectedItem();
+                    wordCompController.displayWord(selectedWord);
+                }
+            });
+        } else if (collection instanceof WordLinkedList) {
+            //words = getAllWordWithPrefix(wordHistory, searchQuery);
+        } else {
+            throw new IllegalArgumentException("Loại dữ liệu không được hỗ trợ");
+        }
+
     }
 
     private List<String> getAllWordWithPrefix(TrieNode node, String prefix) {
@@ -105,6 +135,18 @@ public class SearchCompController {
             }
         }
 
+    }
+
+    private List<String> getAllWordWithPrefix(WordLinkedList<String> words, String prefix) {
+        List<String> matchedWords = new LinkedList<>();
+
+        for (String word : words) {
+            if (word.startsWith(prefix)) {
+                matchedWords.add(word);
+            }
+        }
+
+        return matchedWords;
     }
 
 }

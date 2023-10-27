@@ -92,7 +92,6 @@ public class ParaTransController {
 
         Runnable textToSpeechENTask = () -> {
             connectTextToSpeech(searchQuery, "en-us", AUDIO_PATH_EN);
-            System.out.println("TEXT - SPEECH EN");
         };
 
         executorService.submit(translationTask);
@@ -102,7 +101,7 @@ public class ParaTransController {
 
 
     public void close() {
-        executorService.shutdownNow();
+        if (executorService != null) executorService.shutdownNow();
         if (mediaPlayerSource != null) {
             if (mediaPlayerSource.getStatus() == MediaPlayer.Status.PLAYING) {
                 mediaPlayerSource.stop();
@@ -152,7 +151,6 @@ public class ParaTransController {
                 outputStream.close();
                 inputStream.close();
             } else {
-                System.out.println("WAIT");
                 System.out.println("Request failed with response code: " + responseCode);
             }
 
@@ -162,7 +160,6 @@ public class ParaTransController {
             e.printStackTrace();
         }
     }
-
 
     public void clearOutputTextArea() {
         outputTextArea.clear();

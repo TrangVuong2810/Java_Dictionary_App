@@ -4,6 +4,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.SplitPane;
 
+import static main.DictionaryApplication.wordTrie;
+
 public class LookupController {
     @FXML
     private SplitPane searchComp;
@@ -13,6 +15,7 @@ public class LookupController {
     public LookupController() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("searchComp.fxml"));
+            fxmlLoader.load();
             searchCompController = fxmlLoader.getController();
         } catch (Exception e) {
             e.printStackTrace();
@@ -20,10 +23,10 @@ public class LookupController {
     }
 
     public void setUp() {
-        searchCompController.setUp();
+        searchCompController.setUp(wordTrie);
     }
 
     public void search() {
-        searchCompController.search();
+        searchCompController.search(wordTrie);
     }
 }

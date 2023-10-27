@@ -1,6 +1,8 @@
 package main;
 
 import base.Trie;
+import base.WordHistoryLinkedList;
+import base.WordLinkedList;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,7 +11,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.*;
-import java.util.Scanner;
+import java.util.LinkedList;
+import java.util.List;
 
 public class DictionaryApplication extends Application {
     public static final String DB_URL = "jdbc:mysql://localhost:3307/dictionary";
@@ -17,6 +20,8 @@ public class DictionaryApplication extends Application {
     public static final String DB_PASSWORD = "28102004";
 
     public static Trie wordTrie;
+    public static List<String> wordBookmark = new LinkedList<>();
+    public static WordLinkedList<String> wordHistory = new WordHistoryLinkedList("history");
 
     @FXML
     private HomescreenController homescreenController;
@@ -47,6 +52,28 @@ public class DictionaryApplication extends Application {
         }
     }
 
+//    public void loadHistory() {
+//        try {
+//            Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+//
+//            String query = "SELECT word_target FROM history";
+//            PreparedStatement statement = connection.prepareStatement(query);
+//            ResultSet resultSet = statement.executeQuery();
+//
+//            while (resultSet.next()) {
+//                String word = resultSet.getString("word_target");
+//                wordHistory.add(word);
+//            }
+//
+//            resultSet.close();
+//            statement.close();
+//            connection.close();
+//        } catch (SQLException e) {
+//            System.out.println("ERROR IN LOAD HISTORY FROM DATABASE");
+//            e.printStackTrace();
+//        }
+//    }
+
     @Override
     public void start(Stage stage) throws IOException {
         Scene scene = null;
@@ -59,6 +86,7 @@ public class DictionaryApplication extends Application {
             e.printStackTrace();
         }
         loadFromDatabase();
+        wordHistory.setUp();
 
         //name of the window
         stage.setTitle("Dictionary Application");

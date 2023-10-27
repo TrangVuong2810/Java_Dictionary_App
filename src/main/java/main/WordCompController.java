@@ -65,7 +65,6 @@ public class WordCompController {
                 wordMeaning.setText("Không tìm thấy nghĩa cho từ này.");
                 wordTypeLabel.setText("Không tìm thấy loại từ cho từ này");
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }

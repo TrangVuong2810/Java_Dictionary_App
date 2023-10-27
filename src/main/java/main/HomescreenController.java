@@ -26,6 +26,8 @@ public class HomescreenController implements Initializable {
     @FXML
     private LookupController lookupController;
     @FXML
+    private HistoryController historyController;
+    @FXML
     private ParaTransController paraTransController;
 
     @FXML
@@ -46,7 +48,6 @@ public class HomescreenController implements Initializable {
         paraTransController.close();
     }
     public void setLookupScreen() {
-        //System.out.println("this is lookup scene");
         try {
             mainPane.getChildren().clear();
             mainPane.getChildren().add(lookupScene);
@@ -59,13 +60,15 @@ public class HomescreenController implements Initializable {
     }
 
     public void setHistoryScene() {
-        //System.out.println("this is history scene");
         try {
             mainPane.getChildren().clear();
             mainPane.getChildren().add(historyScene);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        historyController.setUp();
+        historyController.search();
     }
 
     public void setGameScene() {
@@ -112,14 +115,13 @@ public class HomescreenController implements Initializable {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("history.fxml"));
             historyScene = fxmlLoader.load();
-//            historyController = fxmlLoader.getController();
+            historyController = fxmlLoader.getController();
         } catch (Exception e) {
             e.printStackTrace();
         }
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("game.fxml"));
             gameScene = fxmlLoader.load();
-//            bookmarkController = fxmlLoader.getController();
         } catch (Exception e) {
             e.printStackTrace();
         }
