@@ -28,6 +28,8 @@ public class HomescreenController implements Initializable {
     @FXML
     private HistoryController historyController;
     @FXML
+    private BookmarkController bookmarkController;
+    @FXML
     private ParaTransController paraTransController;
 
     @FXML
@@ -82,17 +84,18 @@ public class HomescreenController implements Initializable {
     }
 
     public void setBookmarkScene() {
-        //System.out.println("this is bookmark scene");
         try {
             mainPane.getChildren().clear();
             mainPane.getChildren().add(bookmarkScene);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        bookmarkController.setUp();
+        bookmarkController.search();
     }
 
     public void setParTransScene() {
-        //System.out.println("This is gg trans scene");
         try {
             mainPane.getChildren().clear();
             mainPane.getChildren().add(paraTransScene);
@@ -100,6 +103,7 @@ public class HomescreenController implements Initializable {
             e.printStackTrace();
         }
 
+        paraTransController.setUp();
         paraTransController.run();
     }
 
@@ -128,6 +132,7 @@ public class HomescreenController implements Initializable {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("bookmark.fxml"));
             bookmarkScene = fxmlLoader.load();
+            bookmarkController = fxmlLoader.getController();
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -1,0 +1,15 @@
+.button {
+    -fx-background-color: transparent;
+}
+#navPane {
+    -fx-background-color: #ab93b3;
+    -fx-background-radius: 10px;
+}
+.root {
+    -fx-background-color: #d4bbdd;
+}
+.label {
+    -fx-font-family: "Calibri";
+    -fx-font-size: 26px;
+    -fx-text-fill: black;
+}

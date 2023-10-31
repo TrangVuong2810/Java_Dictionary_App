@@ -1,0 +1,35 @@
+#searchComp {
+    -fx-background-color: transparent;
+    -fx-background-radius: 10px;
+}
+
+.split-pane-divider {
+    -fx-background-color: transparent;
+}
+
+.list-view {
+    -fx-background-color: #ab93b3;
+}
+
+.list-view .scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+
+.list-view .scroll-bar:vertical .thumb {
+    -fx-background-color: #4f1d60;
+}
+
+.list-cell {
+    -fx-background-color: #ab93b3;
+    -fx-text-fill: black;
+}
+
+.list-cell:selected {
+    -fx-background-color: #4f1d60;
+    -fx-text-fill: white;
+}
+
+.list-cell:hover {
+    -fx-background-color: #4f1d60;
+    -fx-text-fill: white;
+}

@@ -12,7 +12,9 @@ import javafx.scene.layout.VBox;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
+import static main.DictionaryApplication.wordBookmark;
 import static main.DictionaryApplication.wordHistory;
 
 public class SearchCompController {
@@ -54,24 +56,20 @@ public class SearchCompController {
 
     private void searchWords(String searchQuery, Object collection) {
         wordList.clear();
-
         try  {
             List<String> words = new ArrayList<>();
             if (collection instanceof Trie) {
                 words = getAllWordWithPrefix(DictionaryApplication.wordTrie.getRoot(), searchQuery);
-
             } else if (collection instanceof WordHistoryLinkedList) {
-
                 words = getAllWordWithPrefix(wordHistory, searchQuery);
-            } else if (collection instanceof WordLinkedList) {
-                //words = getAllWordWithPrefix(wordHistory, searchQuery);
+            } else if (collection instanceof WordBookmarkLinkedList) {
+                words = getAllWordWithPrefix(wordBookmark, searchQuery);
             } else {
                 throw new IllegalArgumentException("Loại dữ liệu không được hỗ trợ");
             }
 
-
             wordList.addAll(words);
-            listView.setItems(wordList);
+            listView.getItems().setAll(wordList);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -89,15 +87,14 @@ public class SearchCompController {
                     wordHistory.add(selectedWord);
                 }
             });
-        } else if (collection instanceof WordHistoryLinkedList) {
+        } else if (collection instanceof WordHistoryLinkedList ||
+                    collection instanceof WordBookmarkLinkedList) {
             listView.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 1) {
                     String selectedWord = listView.getSelectionModel().getSelectedItem();
                     wordCompController.displayWord(selectedWord);
                 }
             });
-        } else if (collection instanceof WordLinkedList) {
-            //words = getAllWordWithPrefix(wordHistory, searchQuery);
         } else {
             throw new IllegalArgumentException("Loại dữ liệu không được hỗ trợ");
         }
@@ -105,37 +102,33 @@ public class SearchCompController {
     }
 
     private List<String> getAllWordWithPrefix(TrieNode node, String prefix) {
-
         List<String> matchedWords = new ArrayList<>();
+        if (node == null) {
+            return matchedWords;
+        }
 
-        if(node == null) return matchedWords;
-
-        recurseNode(node, prefix, "", matchedWords, true);
+        recurseNode(node, prefix, "", matchedWords);
 
         return matchedWords;
-
     }
 
     private void recurseNode(TrieNode node, String prefix, String currentWord,
-                             List<String> words, boolean matches) {
-
-        if(node.isEndOfWord() && matches) {
+                             List<String> words) {
+        if (node.isEndOfWord()) {
             words.add(currentWord);
         }
+        for (Map.Entry<Character, TrieNode> entry : node.getChildren().entrySet()) {
+            char c = entry.getKey();
+            TrieNode childNode = entry.getValue();
 
-        if (matches) {
-            for(Character c : node.getChildren().keySet()) {
-
-                String newWord = currentWord + c;
-
-                boolean newMatches = newWord.startsWith(prefix);
-
-                recurseNode(node.getChildren().get(c), prefix, newWord, words, newMatches);
-
+            if (currentWord.length() < prefix.length() && c == prefix.charAt(currentWord.length())) {
+                recurseNode(childNode, prefix, currentWord + c, words);
+            } else if (currentWord.length() >= prefix.length()) {
+                recurseNode(childNode, prefix, currentWord + c, words);
             }
         }
-
     }
+
 
     private List<String> getAllWordWithPrefix(WordLinkedList<String> words, String prefix) {
         List<String> matchedWords = new LinkedList<>();

@@ -7,8 +7,8 @@ import java.util.Collections;
 import java.util.Scanner;
 
 public class DictionaryManagement extends Dictionary{
-    private static final String VOCAB_PATH_IN = "src/resources/vocab txt/vocabulary_in.txt";
-    private static final String VOCAB_PATH_OUT = "src/resources/vocab txt/vocabulary_out.txt";
+    private static final String VOCAB_PATH_IN = "src/main/resources/vocab txt/vocabulary_in.txt";
+    private static final String VOCAB_PATH_OUT = "src/main/resources/vocab txt/vocabulary_out.txt";
     public static void insertFromCommandline() {
         Scanner scanner = new Scanner(System.in);
         int wordNum = scanner.nextInt();

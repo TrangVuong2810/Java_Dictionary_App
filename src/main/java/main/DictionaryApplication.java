@@ -1,6 +1,7 @@
 package main;
 
 import base.Trie;
+import base.WordBookmarkLinkedList;
 import base.WordHistoryLinkedList;
 import base.WordLinkedList;
 import javafx.application.Application;
@@ -20,7 +21,7 @@ public class DictionaryApplication extends Application {
     public static final String DB_PASSWORD = "28102004";
 
     public static Trie wordTrie;
-    public static List<String> wordBookmark = new LinkedList<>();
+    public static WordLinkedList<String> wordBookmark = new WordBookmarkLinkedList("bookmark");
     public static WordLinkedList<String> wordHistory = new WordHistoryLinkedList("history");
 
     @FXML
@@ -52,28 +53,6 @@ public class DictionaryApplication extends Application {
         }
     }
 
-//    public void loadHistory() {
-//        try {
-//            Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-//
-//            String query = "SELECT word_target FROM history";
-//            PreparedStatement statement = connection.prepareStatement(query);
-//            ResultSet resultSet = statement.executeQuery();
-//
-//            while (resultSet.next()) {
-//                String word = resultSet.getString("word_target");
-//                wordHistory.add(word);
-//            }
-//
-//            resultSet.close();
-//            statement.close();
-//            connection.close();
-//        } catch (SQLException e) {
-//            System.out.println("ERROR IN LOAD HISTORY FROM DATABASE");
-//            e.printStackTrace();
-//        }
-//    }
-
     @Override
     public void start(Stage stage) throws IOException {
         Scene scene = null;
@@ -87,16 +66,14 @@ public class DictionaryApplication extends Application {
         }
         loadFromDatabase();
         wordHistory.setUp();
+        wordBookmark.setUp();
 
-        //name of the window
         stage.setTitle("Dictionary Application");
 
-        //put the scene into the stage
         stage.setScene(scene);
         stage.setMinHeight(600);
         stage.setMinWidth(800);
 
-        //display
         stage.show();
         stage.setOnCloseRequest(e -> homescreenController.close());
     }

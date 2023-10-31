@@ -18,11 +18,16 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import static main.DictionaryApplication.wordBookmark;
 import static main.SearchCompController.*;
 
 public class WordCompController {
     @FXML
     private Button pronunButton;
+    @FXML
+    private Button bookmarkButton;
+    @FXML
+    private Button editButton;
     @FXML
     private Button deleteButton;
     @FXML
@@ -36,13 +41,14 @@ public class WordCompController {
 
     private MediaPlayer mediaPlayer;
 
-    private static final String AUDIO_PATH = "src/resources/audio/audio";
+    private static final String AUDIO_PATH = "src/main/resources/audio/audio";
 
     public void displayWord(String selectedWord) {
         wordLabel.setText(selectedWord);
 
         Thread textToSpeechThread = new Thread(() -> {
             getPronunAudio(selectedWord);
+            if (mediaPlayer == null) System.out.println("WHATTTT");
         });
         textToSpeechThread.start();
 
@@ -70,15 +76,27 @@ public class WordCompController {
         }
 
         pronunButton.setOnMouseClicked(event -> {
-            if (event.getClickCount() == 1) {
-                mediaPlayer.play();
+            try {
+                textToSpeechThread.join();
+                if (event.getClickCount() == 1) {
+                    mediaPlayer.play();
+                }
+            } catch (InterruptedException e) {
+                System.out.println("HAVENT FINISHED GETTING WORD PRONUN");
+                e.printStackTrace();
             }
+        });
+
+
+        bookmarkButton.setOnMouseClicked(event -> {
+            bookmarkWord(selectedWord);
         });
     }
 
 
-    public void bookmarkWord() {
-
+    public void bookmarkWord(String selectedWord) {
+        System.out.println("SELECTED WORD: " + selectedWord);
+        wordBookmark.add(selectedWord);
     }
 
     public void deleteWord() {
@@ -89,10 +107,8 @@ public class WordCompController {
 
     }
 
-    @FXML
-    private TextArea textArea;
-
     public void getPronunAudio(String selectedWord) {
+        if (selectedWord == null || selectedWord.isEmpty()) return;
         String apiKey = "9296283913e24e449e7b8cfa8366c29a";
         try {
             String encodedText = URLEncoder.encode(selectedWord, "UTF-8");

@@ -4,18 +4,27 @@ import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
 import java.io.*;
 import java.net.*;
 import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class ParaTransController {
+    @FXML
+    private Button swapButton;
+    @FXML
+    private Label sourceLangLabel;
+    @FXML
+    private Label targetLangLabel;
     @FXML
     private TextArea inputTextArea;
     @FXML
@@ -27,17 +36,38 @@ public class ParaTransController {
     @FXML
     private Button targetAudioButton;
 
-    private static final String AUDIO_PATH_EN = "src/resources/audio/ParaEN";
-    private static final String AUDIO_PATH_VI = "src/resources/audio/ParaVI";
+    private static final String AUDIO_PATH_EN = "src/main/resources/audio/ParaEN";
+    private static final String AUDIO_PATH_VI = "src/main/resources/audio/ParaVI";
     private ExecutorService executorService;
     private MediaPlayer mediaPlayerSource;
     private MediaPlayer mediaPlayerTarget;
+    private String sourceLang;
+    private String targetLang;
+
+    public void setUp(){
+        sourceLangLabel.setText("Tiếng Anh");
+        sourceLang = "en";
+        targetLangLabel.setText("Tiếng Việt");
+        targetLang = "vi";
+    }
 
     public void initializeExecutorService() {
         executorService = Executors.newFixedThreadPool(2);
     }
 
     public void run() {
+        swapButton.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 1) {
+                String temp = sourceLang;
+                sourceLang = targetLang;
+                targetLang = temp;
+                if (sourceLang.equals("en")) sourceLangLabel.setText("Tiếng Anh");
+                else sourceLangLabel.setText("Tiếng Việt");
+                if (targetLang.equals("vi")) targetLangLabel.setText("Tiếng Việt");
+                else targetLangLabel.setText("Tiếng Anh");
+            }
+        });
+
         initializeExecutorService();
         handlePlayAudio();
         translateButton.setOnMouseClicked(event -> {
@@ -87,16 +117,19 @@ public class ParaTransController {
 
     public void translate(String searchQuery) {
         Runnable translationTask = () -> {
-            performTranslation(searchQuery, "en", "vi");
+            performTranslation(searchQuery, sourceLang, targetLang);
         };
 
-        Runnable textToSpeechENTask = () -> {
-            connectTextToSpeech(searchQuery, "en-us", AUDIO_PATH_EN);
-        };
+        Runnable textToSpeechTask;
+        if (sourceLang.equals("en")) {
+            textToSpeechTask = () -> connectTextToSpeech(searchQuery, "en-us", AUDIO_PATH_EN);
+        }
+        else {
+            textToSpeechTask = () -> connectTextToSpeech(searchQuery, "vi-vn", AUDIO_PATH_VI);
+        }
 
+        executorService.submit(textToSpeechTask);
         executorService.submit(translationTask);
-        executorService.submit(textToSpeechENTask);
-
     }
 
 
@@ -141,10 +174,15 @@ public class ParaTransController {
                 }
 
                 if (filePath.equals(AUDIO_PATH_EN)) {
-                    mediaPlayerSource = new MediaPlayer(new Media(audioFile.toURI().toString()));
+                    if (sourceLang.equals("en")) mediaPlayerSource = new MediaPlayer(new Media(audioFile.toURI().toString()));
+                    else mediaPlayerTarget = new MediaPlayer(new Media(audioFile.toURI().toString()));
                 }
                 else {
-                    mediaPlayerTarget = new MediaPlayer(new Media(audioFile.toURI().toString()));
+                    if (sourceLang.equals("vi")) {
+                        System.out.println("EYYY");
+                        mediaPlayerSource = new MediaPlayer(new Media(audioFile.toURI().toString()));
+                    }
+                    else mediaPlayerTarget = new MediaPlayer(new Media(audioFile.toURI().toString()));
                 }
                 //mediaPlayer.play();
 
@@ -210,9 +248,14 @@ public class ParaTransController {
             String translation = translationBuilder.toString().trim();
 
             outputTextArea.setText(translation);
-            System.out.println("TEST TRANS");
 
-            connectTextToSpeech(translation, "vi-vn", AUDIO_PATH_VI);
+            if (targetLang.equals("en")) {
+                connectTextToSpeech(translation, "en-us", AUDIO_PATH_EN);
+            }
+            else {
+                connectTextToSpeech(translation, "vi-vn", AUDIO_PATH_VI);
+            }
+
         } catch (Exception e) {
             System.out.println("ERROR IN API GG TRANS AND VI_VN AUDIO");
             e.printStackTrace();
