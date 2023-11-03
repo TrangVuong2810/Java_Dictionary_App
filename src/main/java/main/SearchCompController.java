@@ -18,10 +18,6 @@ import static main.DictionaryApplication.wordBookmark;
 import static main.DictionaryApplication.wordHistory;
 
 public class SearchCompController {
-    public static final String DB_URL = "jdbc:mysql://localhost:3307/dictionary";
-    public static final String DB_USER = "root";
-    public static final String DB_PASSWORD = "28102004";
-
     @FXML
     private VBox wordComp;
     @FXML
@@ -44,7 +40,7 @@ public class SearchCompController {
 
     public void search(Object collection) {
         textField.setOnKeyReleased(event -> {
-            String searchQuery = textField.getText();
+            String searchQuery = textField.getText().toLowerCase();
             searchWords(searchQuery, collection);
         });
     }
@@ -114,7 +110,7 @@ public class SearchCompController {
 
     private void recurseNode(TrieNode node, String prefix, String currentWord,
                              List<String> words) {
-        if (node.isEndOfWord()) {
+        if (node.isEndOfWord() && currentWord.startsWith(prefix)) {
             words.add(currentWord);
         }
         for (Map.Entry<Character, TrieNode> entry : node.getChildren().entrySet()) {

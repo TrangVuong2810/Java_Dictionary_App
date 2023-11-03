@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.ParaTransController">
+<StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" stylesheets="@../stylesheet/paraTrans.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.ParaTransController">
    <children>
       <VBox>
          <children>
@@ -27,12 +27,12 @@
                               <Region HBox.hgrow="ALWAYS" />
                               <Button fx:id="sourceAudioButton" contentDisplay="CENTER" mnemonicParsing="false" HBox.hgrow="ALWAYS">
                                  <graphic>
-                                    <ImageView fitHeight="50.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../media/volume.png" />
-                                       </image>
+                                    <ImageView fx:id="sourceAudioButtonIMG" fitHeight="50.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                     </ImageView>
-                                 </graphic></Button>
+                                 </graphic>
+                                 <tooltip>
+                                    <Tooltip text="Pronounce" />
+                                 </tooltip></Button>
                            </children>
                         </HBox>
                         <TextArea fx:id="inputTextArea" wrapText="true" VBox.vgrow="ALWAYS" />
@@ -42,20 +42,20 @@
                      <children>
                         <Button fx:id="swapButton" mnemonicParsing="false">
                            <graphic>
-                              <ImageView fitHeight="50.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../media/exchange.png" />
-                                 </image>
+                              <ImageView fx:id="swapButtonIMG" fitHeight="50.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                               </ImageView>
-                           </graphic></Button>
+                           </graphic>
+                           <tooltip>
+                              <Tooltip text="Swap Language" />
+                           </tooltip></Button>
                         <Button fx:id="translateButton" mnemonicParsing="false">
                            <graphic>
-                              <ImageView fitHeight="50.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../media/arrow-circle-right.png" />
-                                 </image>
+                              <ImageView fx:id="translateButtonIMG" fitHeight="50.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                               </ImageView>
-                           </graphic></Button>
+                           </graphic>
+                           <tooltip>
+                              <Tooltip text="Translate" />
+                           </tooltip></Button>
                      </children>
                   </VBox>
                   <VBox>
@@ -66,12 +66,12 @@
                               <Region HBox.hgrow="ALWAYS" />
                               <Button fx:id="targetAudioButton" contentDisplay="CENTER" mnemonicParsing="false" HBox.hgrow="ALWAYS">
                                  <graphic>
-                                    <ImageView fitHeight="50.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../media/volume.png" />
-                                       </image>
+                                    <ImageView fx:id="targetAudioButtonIMG" fitHeight="50.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                     </ImageView>
-                                 </graphic></Button>
+                                 </graphic>
+                                 <tooltip>
+                                    <Tooltip text="Pronounce" />
+                                 </tooltip></Button>
                            </children>
                         </HBox>
                         <TextArea fx:id="outputTextArea" editable="false" wrapText="true" VBox.vgrow="ALWAYS" />

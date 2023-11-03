@@ -1,0 +1,24 @@
+#sourceAudioButtonIMG, #targetAudioButtonIMG {
+    -fx-image: url(../media/volume.png);
+}
+
+#sourceAudioButton:hover #sourceAudioButtonIMG, #targetAudioButton:hover #targetAudioButtonIMG {
+    -fx-image: url(../media/volume-color-2.png);
+}
+
+#swapButtonIMG {
+    -fx-image: url(../media/exchange.png);
+}
+
+#swapButton:hover #swapButtonIMG {
+    -fx-image: url(../media/exchange-color-2.png);
+}
+
+#translateButtonIMG {
+    -fx-image: url(../media/arrow-circle-right.png);
+}
+
+#translateButton:hover #translateButtonIMG {
+    -fx-image: url(../media/arrow-circle-right-color-2.png);
+}
+

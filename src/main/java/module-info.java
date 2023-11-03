@@ -8,7 +8,10 @@ module main.dictionary_app {
     requires org.kordamp.bootstrapfx.core;
     requires com.almasb.fxgl.all;
     requires java.sql;
+    requires java.net.http;
+    requires com.fasterxml.jackson.databind;
 
     opens main to javafx.fxml;
     exports main;
+    exports base;
 }

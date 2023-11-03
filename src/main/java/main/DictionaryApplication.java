@@ -21,8 +21,8 @@ public class DictionaryApplication extends Application {
     public static final String DB_PASSWORD = "28102004";
 
     public static Trie wordTrie;
-    public static WordLinkedList<String> wordBookmark = new WordBookmarkLinkedList("bookmark");
-    public static WordLinkedList<String> wordHistory = new WordHistoryLinkedList("history");
+    public static WordLinkedList<String> wordBookmark = new WordBookmarkLinkedList<>("bookmark");
+    public static WordLinkedList<String> wordHistory = new WordHistoryLinkedList<>("history");
 
     @FXML
     private HomescreenController homescreenController;

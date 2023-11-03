@@ -11,50 +11,59 @@
    <left>
       <VBox fx:id="navPane" prefWidth="75.0" spacing="5.0" BorderPane.alignment="CENTER">
          <children>
-            <Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+            <Region prefHeight="200.0" prefWidth="150.0" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets />
                </VBox.margin></Region>
             <Button fx:id="lookupButton" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#setLookupScreen" prefHeight="75.0" prefWidth="75.0" VBox.vgrow="ALWAYS">
                <graphic>
-                  <ImageView fitHeight="70.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../media/search.png" />
-                     </image>
+                  <ImageView fx:id="lookupButtonIMG" fitHeight="50.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                   </ImageView>
-               </graphic></Button>
+               </graphic>
+               <tooltip>
+                  <Tooltip text="Lookup" />
+               </tooltip></Button>
             <Button fx:id="historyButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#setHistoryScene" prefHeight="75.0" prefWidth="75.0">
                <graphic>
-                  <ImageView fitHeight="70.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../media/clock.png" />
-                     </image>
+                  <ImageView fx:id="historyButtonIMG" fitHeight="50.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                   </ImageView>
-               </graphic></Button>
+               </graphic>
+               <tooltip>
+                  <Tooltip text="History" />
+               </tooltip></Button>
             <Button fx:id="gameButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#setGameScene" prefHeight="75.0" prefWidth="75.0">
                <graphic>
-                  <ImageView fitHeight="70.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../media/gamepad.png" />
-                     </image>
+                  <ImageView fx:id="gameButtonIMG" fitHeight="50.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                   </ImageView>
-               </graphic></Button>
+               </graphic>
+               <tooltip>
+                  <Tooltip text="Game" />
+               </tooltip></Button>
             <Button fx:id="bookmarkButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#setBookmarkScene" prefHeight="75.0" prefWidth="75.0">
                <graphic>
-                  <ImageView fitHeight="70.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../media/star.png" />
-                     </image>
+                  <ImageView fx:id="bookmarkButtonIMG" fitHeight="50.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                   </ImageView>
-               </graphic></Button>
-            <Button fx:id="paraTransButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#setParTransScene" prefHeight="75.0" prefWidth="75.0" text="//gg trans">
+               </graphic>
+               <tooltip>
+                  <Tooltip text="Bookmark" />
+               </tooltip></Button>
+            <Button fx:id="paraTransButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#setParTransScene" prefHeight="75.0" prefWidth="75.0">
                <graphic>
-                  <ImageView fitHeight="70.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../media/document-signed.png" />
-                     </image>
+                  <ImageView fx:id="paraTransButtonIMG" fitHeight="50.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                   </ImageView>
-               </graphic></Button>
+               </graphic>
+               <tooltip>
+                  <Tooltip text="Paragraph Translate" />
+               </tooltip></Button>
+            <Button fx:id="addWordButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#setAddWordScene" prefHeight="75.0" prefWidth="75.0">
+               <graphic>
+                  <ImageView fx:id="addWordButtonIMG" fitHeight="50.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                  </ImageView>
+               </graphic>
+               <tooltip>
+                  <Tooltip text="Add Word" />
+               </tooltip>
+            </Button>
             <Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
          </children>
          <BorderPane.margin>

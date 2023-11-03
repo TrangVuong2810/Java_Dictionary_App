@@ -1,0 +1,12 @@
+#addWord {
+    -fx-background-color: white;
+    -fx-background-radius: 10px;
+}
+
+#addWordButtonIMG {
+    -fx-image: url(../media/add-color.png);
+}
+
+#addWordButton:hover #addWordButtonIMG {
+    -fx-image: url(../media/add-color-2.png);
+}

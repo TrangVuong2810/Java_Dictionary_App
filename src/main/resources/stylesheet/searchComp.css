@@ -8,7 +8,7 @@
 }
 
 .list-view {
-    -fx-background-color: #ab93b3;
+    -fx-background-color: #b0c6cb;
 }
 
 .list-view .scroll-bar:vertical {
@@ -16,20 +16,20 @@
 }
 
 .list-view .scroll-bar:vertical .thumb {
-    -fx-background-color: #4f1d60;
+    -fx-background-color: #8aa7ad;
 }
 
 .list-cell {
-    -fx-background-color: #ab93b3;
+    -fx-background-color: #b0c6cb;
     -fx-text-fill: black;
 }
 
 .list-cell:selected {
-    -fx-background-color: #4f1d60;
+    -fx-background-color: #8aa7ad;
     -fx-text-fill: white;
 }
 
 .list-cell:hover {
-    -fx-background-color: #4f1d60;
+    -fx-background-color: #8aa7ad;
     -fx-text-fill: white;
 }

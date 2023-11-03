@@ -22,7 +22,38 @@
     -fx-background-color: transparent;
 }
 
-
 .text-area .scroll-pane .content{
     -fx-background-color: transparent;
+}
+
+#wordBookmarkButtonIMG {
+    -fx-image: url(../media/circle-star-color.png);
+}
+
+#wordEditButtonIMG {
+    -fx-image: url(../media/edit-color.png);
+}
+
+#wordDelButtonIMG {
+    -fx-image: url(../media/trash-color.png);
+}
+
+#wordBookmarkButton:hover #wordBookmarkButtonIMG {
+    -fx-image: url(../media/circle-star-color-2.png);
+}
+
+#wordEditButton:hover #wordEditButtonIMG {
+    -fx-image: url(../media/edit-color-2.png);
+}
+
+#wordDeleteButton:hover #wordDelButtonIMG {
+    -fx-image: url(../media/trash-color-2.png);
+}
+
+#wordPronunButtonIMG {
+    -fx-image: url(../media/volume-color.png);
+}
+
+#wordPronunButton:hover #wordPronunButtonIMG {
+    -fx-image: url(../media/volume-color-2.png);
 }

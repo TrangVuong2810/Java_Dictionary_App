@@ -1,6 +1,6 @@
 package base;
 
-public class WordBookmarkLinkedList extends WordLinkedList<String>{
+public class WordBookmarkLinkedList<String> extends WordLinkedList<String>{
     public WordBookmarkLinkedList(String tableName) {
         super(tableName);
     }
@@ -9,16 +9,11 @@ public class WordBookmarkLinkedList extends WordLinkedList<String>{
     public boolean add(String word) {
         boolean add;
         if (!super.checkDuplicateValue(word)) {
-            add = super.delete(word);
+            add = super.delete((java.lang.String) word);
         }
         else {
             add = super.add(word);
         }
         return add;
-    }
-
-    @Override
-    public boolean delete(String word) {
-        return false;
     }
 }

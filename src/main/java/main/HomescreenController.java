@@ -21,6 +21,8 @@ public class HomescreenController implements Initializable {
     private Button bookmarkButton;
     @FXML
     private Button paraTransButton;
+    @FXML
+    private Button addWordButton;
 
 
     @FXML
@@ -31,6 +33,8 @@ public class HomescreenController implements Initializable {
     private BookmarkController bookmarkController;
     @FXML
     private ParaTransController paraTransController;
+    @FXML
+    private AddWordController addWordController;
 
     @FXML
     private Node lookupScene;
@@ -43,13 +47,25 @@ public class HomescreenController implements Initializable {
     @FXML
     private Node paraTransScene;
     @FXML
+    private Node addWordScene;
+    @FXML
     private StackPane mainPane;
-    //private StackPane idk;
 
     public void close() {
         paraTransController.close();
     }
+
+    public void resetStyleNav() {
+        lookupButton.getStyleClass().removeAll("active");
+        historyButton.getStyleClass().removeAll("active");
+        gameButton.getStyleClass().removeAll("active");
+        bookmarkButton.getStyleClass().removeAll("active");
+        paraTransButton.getStyleClass().removeAll("active");
+        addWordButton.getStyleClass().removeAll("active");
+    }
     public void setLookupScreen() {
+        resetStyleNav();
+        lookupButton.getStyleClass().add("active");
         try {
             mainPane.getChildren().clear();
             mainPane.getChildren().add(lookupScene);
@@ -62,6 +78,8 @@ public class HomescreenController implements Initializable {
     }
 
     public void setHistoryScene() {
+        resetStyleNav();
+        historyButton.getStyleClass().add("active");
         try {
             mainPane.getChildren().clear();
             mainPane.getChildren().add(historyScene);
@@ -74,6 +92,8 @@ public class HomescreenController implements Initializable {
     }
 
     public void setGameScene() {
+        resetStyleNav();
+        gameButton.getStyleClass().add("active");
         //System.out.println("this is game scene");
         try {
             mainPane.getChildren().clear();
@@ -84,6 +104,8 @@ public class HomescreenController implements Initializable {
     }
 
     public void setBookmarkScene() {
+        resetStyleNav();
+        bookmarkButton.getStyleClass().add("active");
         try {
             mainPane.getChildren().clear();
             mainPane.getChildren().add(bookmarkScene);
@@ -96,6 +118,8 @@ public class HomescreenController implements Initializable {
     }
 
     public void setParTransScene() {
+        resetStyleNav();
+        paraTransButton.getStyleClass().add("active");
         try {
             mainPane.getChildren().clear();
             mainPane.getChildren().add(paraTransScene);
@@ -105,6 +129,19 @@ public class HomescreenController implements Initializable {
 
         paraTransController.setUp();
         paraTransController.run();
+    }
+
+    public void setAddWordScene() {
+        resetStyleNav();
+        addWordButton.getStyleClass().add("active");
+        try {
+            mainPane.getChildren().clear();
+            mainPane.getChildren().add(addWordScene);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        addWordController.run();
     }
 
     @Override
@@ -143,7 +180,12 @@ public class HomescreenController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-//        searchButton.getStyleClass().add("active");
-//        mainContent.getChildren().setAll(searchPane);
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addWord.fxml"));
+            addWordScene = fxmlLoader.load();
+            addWordController = fxmlLoader.getController();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

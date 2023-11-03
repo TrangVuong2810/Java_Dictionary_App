@@ -2,14 +2,62 @@
     -fx-background-color: transparent;
 }
 #navPane {
-    -fx-background-color: #ab93b3;
+    -fx-background-color: #b0c6cb;
     -fx-background-radius: 10px;
 }
 .root {
-    -fx-background-color: #d4bbdd;
+    -fx-background-color: #c8d9dd;
 }
 .label {
     -fx-font-family: "Calibri";
     -fx-font-size: 26px;
     -fx-text-fill: black;
+}
+
+#lookupButtonIMG {
+    -fx-image: url(../media/search.png);
+}
+
+#lookupButton.active #lookupButtonIMG, #lookupButton:hover #lookupButtonIMG {
+    -fx-image: url(../media/search-color-2.png);
+}
+
+#historyButtonIMG {
+    -fx-image: url(../media/time-past.png);
+}
+
+#historyButton.active #historyButtonIMG, #historyButton:hover #historyButtonIMG {
+    -fx-image: url(../media/time-past-color-2.png);
+}
+
+#bookmarkButtonIMG {
+    -fx-image: url(../media/circle-star.png);
+}
+
+#bookmarkButton.active #bookmarkButtonIMG, #bookmarkButton:hover #bookmarkButtonIMG {
+    -fx-image: url(../media/circle-star-color-2.png);
+}
+
+#paraTransButtonIMG {
+    -fx-image: url(../media/document.png);
+}
+
+#paraTransButton.active #paraTransButtonIMG, #paraTransButton:hover #paraTransButtonIMG {
+    -fx-image: url(../media/document-color-2.png);
+}
+
+#addWordButtonIMG {
+    -fx-image: url(../media/add-document.png);
+}
+
+#addWordButton.active #addWordButtonIMG, #addWordButton:hover #addWordButtonIMG {
+    -fx-image: url(../media/add-document-color-2.png);
+}
+
+#gameButtonIMG {
+    -fx-image: url(../media/gamepad.png);
+}
+
+#gameButton.active #gameButtonIMG, #gameButton:hover #gameButtonIMG {
+    -fx-image: url(../media/gamepad-color-2.png);
 }
