@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane alignment="TOP_LEFT" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.Result">
+   <children>
+      <VBox prefHeight="200.0" prefWidth="100.0">
+         <children>
+            <HBox prefHeight="177.0" prefWidth="560.0">
+               <children>
+                  <Label prefHeight="116.0" prefWidth="266.0" text="Congrats" />
+               </children>
+            </HBox>
+            <HBox prefHeight="287.0" prefWidth="540.0" spacing="30.0">
+               <children>
+                  <VBox prefHeight="275.0" prefWidth="198.0" spacing="50.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label fx:id="corrects" text="Score:">
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label fx:id="totalTimer" text="Total Timer" />
+                     </children>
+                     <HBox.margin>
+                        <Insets top="20.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <PieChart fx:id="pieChart" prefHeight="275.0" prefWidth="266.0" HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+   <padding>
+      <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+   </padding>
+</StackPane>
