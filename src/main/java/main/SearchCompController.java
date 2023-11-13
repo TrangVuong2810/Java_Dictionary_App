@@ -5,8 +5,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
@@ -52,7 +54,7 @@ public class SearchCompController {
 
     private void searchWords(String searchQuery, Object collection) {
         wordList.clear();
-        try  {
+        try {
             List<String> words = new ArrayList<>();
             if (collection instanceof Trie) {
                 words = getAllWordWithPrefix(DictionaryApplication.wordTrie.getRoot(), searchQuery);
@@ -65,7 +67,7 @@ public class SearchCompController {
             }
 
             wordList.addAll(words);
-            listView.getItems().setAll(wordList);
+            listView.setItems(wordList);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -74,10 +76,40 @@ public class SearchCompController {
 
     }
     public void displayWord(Object collection) {
+        listView.addEventFilter(MouseEvent.MOUSE_CLICKED, event -> {
+            double padding = 10;
+            double clickX = event.getX();
+            double clickY = event.getY();
+            double leftPadding = listView.getInsets().getLeft();
+            double topPadding = listView.getInsets().getTop();
+
+            if (clickX < leftPadding || clickX > (listView.getWidth() - leftPadding - padding) ||
+                    clickY < topPadding || clickY > (listView.getHeight() - topPadding - padding)) {
+                event.consume();
+            }
+        });
+        listView.setCellFactory(param -> new ListCell<String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty || item == null) {
+                    setDisable(true);
+                    setText(null);
+                } else {
+                    setDisable(false);
+                    setText(item);
+                }
+            }
+        });
         if (collection instanceof Trie) {
             listView.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 1) {
                     String selectedWord = listView.getSelectionModel().getSelectedItem();
+                    if (selectedWord == null || selectedWord.isEmpty()) {
+                        event.consume();
+                        return;
+                    }
                     wordCompController.displayWord(selectedWord);
 
                     wordHistory.add(selectedWord);
@@ -88,6 +120,10 @@ public class SearchCompController {
             listView.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 1) {
                     String selectedWord = listView.getSelectionModel().getSelectedItem();
+                    if (selectedWord == null || selectedWord.isEmpty()) {
+                        event.consume();
+                        return;
+                    }
                     wordCompController.displayWord(selectedWord);
                 }
             });

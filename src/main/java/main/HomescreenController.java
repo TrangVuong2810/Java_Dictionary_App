@@ -1,9 +1,11 @@
 package main;
 
+import base.CustomAlert;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 
@@ -32,9 +34,11 @@ public class HomescreenController implements Initializable {
     @FXML
     private BookmarkController bookmarkController;
     @FXML
+    private GameController gameController;
+    @FXML
     private ParaTransController paraTransController;
     @FXML
-    private AddWordController addWordController;
+    private InputWordController inputWordController;
 
     @FXML
     private Node lookupScene;
@@ -63,6 +67,7 @@ public class HomescreenController implements Initializable {
         paraTransButton.getStyleClass().removeAll("active");
         addWordButton.getStyleClass().removeAll("active");
     }
+
     public void setLookupScreen() {
         resetStyleNav();
         lookupButton.getStyleClass().add("active");
@@ -70,6 +75,9 @@ public class HomescreenController implements Initializable {
             mainPane.getChildren().clear();
             mainPane.getChildren().add(lookupScene);
         } catch (Exception e) {
+            CustomAlert customAlert = new CustomAlert("SET SCENE ERROR",
+                    "Error occurred in setting lookup screen " + "\n" +
+                            "please contact the developers for more information", Alert.AlertType.ERROR);
             e.printStackTrace();
         }
 
@@ -84,6 +92,9 @@ public class HomescreenController implements Initializable {
             mainPane.getChildren().clear();
             mainPane.getChildren().add(historyScene);
         } catch (Exception e) {
+            CustomAlert customAlert = new CustomAlert("SET SCENE ERROR",
+                    "Error occurred in setting history scene " + "\n" +
+                            "please contact the developers for more information", Alert.AlertType.ERROR);
             e.printStackTrace();
         }
 
@@ -94,13 +105,17 @@ public class HomescreenController implements Initializable {
     public void setGameScene() {
         resetStyleNav();
         gameButton.getStyleClass().add("active");
-        //System.out.println("this is game scene");
         try {
             mainPane.getChildren().clear();
             mainPane.getChildren().add(gameScene);
         } catch (Exception e) {
+            CustomAlert customAlert = new CustomAlert("SET SCENE ERROR",
+                    "Error occurred in setting game scene " + "\n" +
+                            "please contact the developers for more information", Alert.AlertType.ERROR);
             e.printStackTrace();
         }
+
+        gameController.setUpGameController();
     }
 
     public void setBookmarkScene() {
@@ -110,6 +125,9 @@ public class HomescreenController implements Initializable {
             mainPane.getChildren().clear();
             mainPane.getChildren().add(bookmarkScene);
         } catch (Exception e) {
+            CustomAlert customAlert = new CustomAlert("SET SCENE ERROR",
+                    "Error occurred in setting bookmark scene " + "\n" +
+                            "please contact the developers for more information", Alert.AlertType.ERROR);
             e.printStackTrace();
         }
 
@@ -124,6 +142,9 @@ public class HomescreenController implements Initializable {
             mainPane.getChildren().clear();
             mainPane.getChildren().add(paraTransScene);
         } catch (Exception e) {
+            CustomAlert customAlert = new CustomAlert("SET SCENE ERROR",
+                    "Error occurred in setting para trans scene " + "\n" +
+                            "please contact the developers for more information", Alert.AlertType.ERROR);
             e.printStackTrace();
         }
 
@@ -138,10 +159,13 @@ public class HomescreenController implements Initializable {
             mainPane.getChildren().clear();
             mainPane.getChildren().add(addWordScene);
         } catch (Exception e) {
+            CustomAlert customAlert = new CustomAlert("SET SCENE ERROR",
+                    "Error occurred in setting adding word scene " + "\n" +
+                            "please contact the developers for more information", Alert.AlertType.ERROR);
             e.printStackTrace();
         }
 
-        addWordController.run();
+        inputWordController.run();
     }
 
     @Override
@@ -151,6 +175,9 @@ public class HomescreenController implements Initializable {
             lookupScene = fxmlLoader.load();
             lookupController = fxmlLoader.getController();
         } catch (Exception e) {
+            CustomAlert customAlert = new CustomAlert("INIT SCENE ERROR",
+                    "Error occurred in initializing lookup scene " + "\n" +
+                            "please contact the developers for more information", Alert.AlertType.ERROR);
             e.printStackTrace();
         }
         try {
@@ -158,12 +185,19 @@ public class HomescreenController implements Initializable {
             historyScene = fxmlLoader.load();
             historyController = fxmlLoader.getController();
         } catch (Exception e) {
+            CustomAlert customAlert = new CustomAlert("INIT SCENE ERROR",
+                    "Error occurred in initializing history scene " + "\n" +
+                            "please contact the developers for more information", Alert.AlertType.ERROR);
             e.printStackTrace();
         }
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("game.fxml"));
             gameScene = fxmlLoader.load();
+            gameController = fxmlLoader.getController();
         } catch (Exception e) {
+            CustomAlert customAlert = new CustomAlert("INIT SCENE ERROR",
+                    "Error occurred in initializing game scene " + "\n" +
+                            "please contact the developers for more information", Alert.AlertType.ERROR);
             e.printStackTrace();
         }
         try {
@@ -171,6 +205,9 @@ public class HomescreenController implements Initializable {
             bookmarkScene = fxmlLoader.load();
             bookmarkController = fxmlLoader.getController();
         } catch (Exception e) {
+            CustomAlert customAlert = new CustomAlert("INIT SCENE ERROR",
+                    "Error occurred in initializing bookmark scene " + "\n" +
+                            "please contact the developers for more information", Alert.AlertType.ERROR);
             e.printStackTrace();
         }
         try {
@@ -178,12 +215,15 @@ public class HomescreenController implements Initializable {
             paraTransScene = fxmlLoader.load();
             paraTransController = fxmlLoader.getController();
         } catch (Exception e) {
+            CustomAlert customAlert = new CustomAlert("INIT SCENE ERROR",
+                    "Error occurred in initializing bookmark scene " + "\n" +
+                            "please contact the developers for more information", Alert.AlertType.ERROR);
             e.printStackTrace();
         }
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addWord.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("inputWord.fxml"));
             addWordScene = fxmlLoader.load();
-            addWordController = fxmlLoader.getController();
+            inputWordController = fxmlLoader.getController();
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -3,6 +3,17 @@
     -fx-background-radius: 10px;
 }
 
+.button, #wordSynonymLabel {
+    visibility: hidden;
+}
+
+#wordSynonymLabel.active,
+#wordPronunButton.active,
+#wordBookmarkButton.active,
+#wordEditButton.active,
+#wordDeleteButton.active {
+    visibility: visible;
+}
 
 .text-field {
     -fx-background-color: transparent;
@@ -56,4 +67,9 @@
 
 #wordPronunButton:hover #wordPronunButtonIMG {
     -fx-image: url(../media/volume-color-2.png);
+}
+
+
+#wordPronunButton.loading #wordPronunButtonIMG {
+    -fx-image: url(../media/loading.gif);
 }

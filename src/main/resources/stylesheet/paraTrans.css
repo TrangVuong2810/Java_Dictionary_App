@@ -1,8 +1,15 @@
+.text-area, .text-area .scroll-pane, .text-area .scroll-pane .viewport,
+.text-area .scroll-pane .content {
+    -fx-background-radius: 10px;
+
+}
+
 #sourceAudioButtonIMG, #targetAudioButtonIMG {
     -fx-image: url(../media/volume.png);
 }
 
-#sourceAudioButton:hover #sourceAudioButtonIMG, #targetAudioButton:hover #targetAudioButtonIMG {
+#sourceAudioButton:hover #sourceAudioButtonIMG,
+#targetAudioButton:hover #targetAudioButtonIMG {
     -fx-image: url(../media/volume-color-2.png);
 }
 
@@ -22,3 +29,8 @@
     -fx-image: url(../media/arrow-circle-right-color-2.png);
 }
 
+#translateButton.loading #translateButtonIMG,
+#sourceAudioButton.loading #sourceAudioButtonIMG,
+#targetAudioButton.loading #targetAudioButtonIMG {
+    -fx-image: url(../media/loading.gif);
+}

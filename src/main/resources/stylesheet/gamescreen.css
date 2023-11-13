@@ -1,0 +1,29 @@
+#gamescreenScene {
+    -fx-background-color: #c8d9dd;
+}
+
+#questionCount, #timeLabel {
+    -fx-background-color: #b0c6cb;
+    -fx-background-radius: 10px;
+}
+
+
+#nextBtn {
+    -fx-background-color: transparent;
+}
+
+#nextBtnIMG {
+    -fx-image: url(../media/next.png);
+}
+
+#nextBtn:hover #nextBtnIMG {
+    -fx-image: url(../media/next-color-2.png);
+}
+
+#nextBtn.last #nextBtnIMG {
+    -fx-image: url(../media/tick-mark.png);
+}
+
+#nextBtn.last:hover #nextBtnIMG {
+    -fx-image: url(../media/tick-mark-color-2.png);
+}

@@ -7,8 +7,13 @@
     -fx-background-color: transparent;
 }
 
+.text-field {
+    -fx-background-radius: 10px;
+}
+
 .list-view {
     -fx-background-color: #b0c6cb;
+    -fx-background-radius: 10px;
 }
 
 .list-view .scroll-bar:vertical {
@@ -32,4 +37,12 @@
 .list-cell:hover {
     -fx-background-color: #8aa7ad;
     -fx-text-fill: white;
+}
+
+.empty {
+    -fx-background-color: transparent;
+}
+
+.list-cell:hover .empty {
+    -fx-background-color: transparent;
 }

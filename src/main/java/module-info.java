@@ -12,6 +12,8 @@ module main.dictionary_app {
     requires com.fasterxml.jackson.databind;
 
     opens main to javafx.fxml;
+    opens game to javafx.fxml;
+    exports game;
     exports main;
     exports base;
 }

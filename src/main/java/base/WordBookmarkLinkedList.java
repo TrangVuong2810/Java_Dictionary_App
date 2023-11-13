@@ -1,5 +1,7 @@
 package base;
 
+import javafx.stage.Stage;
+
 public class WordBookmarkLinkedList<String> extends WordLinkedList<String>{
     public WordBookmarkLinkedList(String tableName) {
         super(tableName);

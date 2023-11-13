@@ -1,0 +1,18 @@
+#inputWord {
+    -fx-background-color: white;
+    -fx-background-radius: 10px;
+}
+
+#inputWordButtonIMG {
+    -fx-image: url(../media/add-color.png);
+}
+
+#executeButton:hover #inputWordButtonIMG {
+    -fx-image: url(../media/add-color-2.png);
+}
+
+.label {
+    -fx-font-family: "Calibri";
+    -fx-font-size: 26px;
+    -fx-text-fill: black;
+}

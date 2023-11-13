@@ -1,0 +1,320 @@
+#hangmanScene {
+    -fx-background-color: white;
+    -fx-background-radius: 10px;
+}
+
+.button {
+    -fx-background-color: transparent;
+}
+
+#qBtnIMG {
+    -fx-image: url(../media/hangman/letter-q-color.png);
+}
+
+#qBtn:hover #qBtnIMG {
+    -fx-image: url(../media/hangman/letter-q-color-2.png);
+}
+
+#qBtn.disabled #qBtnIMG {
+    -fx-image: url(../media/hangman/letter-q-color-3.png);
+}
+
+#wBtnIMG {
+    -fx-image: url(../media/hangman/letter-w-color.png);
+}
+
+#wBtn:hover #wBtnIMG {
+    -fx-image: url(../media/hangman/letter-w-color-2.png);
+}
+
+#wBtn.disabled #wBtnIMG {
+    -fx-image: url(../media/hangman/letter-w-color-3.png);
+}
+
+#eBtnIMG {
+    -fx-image: url(../media/hangman/letter-e-color.png);
+}
+
+#eBtn:hover #eBtnIMG {
+    -fx-image: url(../media/hangman/letter-e-color-2.png);
+}
+
+#eBtn.disabled #eBtnIMG {
+    -fx-image: url(../media/hangman/letter-e-color-3.png);
+}
+
+#rBtnIMG {
+    -fx-image: url(../media/hangman/letter-r-color.png);
+}
+
+#rBtn:hover #rBtnIMG {
+    -fx-image: url(../media/hangman/letter-r-color-2.png);
+}
+
+#rBtn.disabled #rBtnIMG {
+    -fx-image: url(../media/hangman/letter-r-color-3.png);
+}
+
+#tBtnIMG {
+    -fx-image: url(../media/hangman/letter-t-color.png);
+}
+
+#tBtn:hover #tBtnIMG {
+    -fx-image: url(../media/hangman/letter-t-color-2.png);
+}
+
+#tBtn.disabled #tBtnIMG {
+    -fx-image: url(../media/hangman/letter-t-color-3.png);
+}
+
+#yBtnIMG {
+    -fx-image: url(../media/hangman/letter-y-color.png);
+}
+
+#yBtn:hover #yBtnIMG {
+    -fx-image: url(../media/hangman/letter-y-color-2.png);
+}
+
+#yBtn.disabled #yBtnIMG {
+    -fx-image: url(../media/hangman/letter-y-color-3.png);
+}
+
+#uBtnIMG {
+    -fx-image: url(../media/hangman/letter-u-color.png);
+}
+
+#uBtn:hover #uBtnIMG {
+    -fx-image: url(../media/hangman/letter-u-color-2.png);
+}
+
+#uBtn.disabled #uBtnIMG {
+    -fx-image: url(../media/hangman/letter-u-color-3.png);
+}
+
+#iBtnIMG {
+    -fx-image: url(../media/hangman/letter-i-color.png);
+}
+
+#iBtn:hover #iBtnIMG {
+    -fx-image: url(../media/hangman/letter-i-color-2.png);
+}
+
+#iBtn.disabled #iBtnIMG {
+    -fx-image: url(../media/hangman/letter-i-color-3.png);
+}
+
+#oBtnIMG {
+    -fx-image: url(../media/hangman/letter-o-color.png);
+}
+
+#oBtn:hover #oBtnIMG {
+    -fx-image: url(../media/hangman/letter-o-color-2.png);
+}
+
+#oBtn.disabled #oBtnIMG {
+    -fx-image: url(../media/hangman/letter-o-color-3.png);
+}
+
+#pBtnIMG {
+    -fx-image: url(../media/hangman/letter-p-color.png);
+}
+
+#pBtn:hover #pBtnIMG {
+    -fx-image: url(../media/hangman/letter-p-color-2.png);
+}
+
+#pBtn.disabled #pBtnIMG {
+    -fx-image: url(../media/hangman/letter-p-color-3.png);
+}
+
+#aBtnIMG {
+    -fx-image: url(../media/hangman/letter-a-color.png);
+}
+
+#aBtn:hover #aBtnIMG {
+    -fx-image: url(../media/hangman/letter-a-color-2.png);
+}
+
+#aBtn.disabled #aBtnIMG {
+    -fx-image: url(../media/hangman/letter-a-color-3.png);
+}
+
+#sBtnIMG {
+    -fx-image: url(../media/hangman/letter-s-color.png);
+}
+
+#sBtn:hover #sBtnIMG {
+    -fx-image: url(../media/hangman/letter-s-color-2.png);
+}
+
+#sBtn.disabled #sBtnIMG {
+    -fx-image: url(../media/hangman/letter-s-color-3.png);
+}
+
+#dBtnIMG {
+    -fx-image: url(../media/hangman/letter-d-color.png);
+}
+
+#dBtn:hover #dBtnIMG {
+    -fx-image: url(../media/hangman/letter-d-color-2.png);
+}
+
+#dBtn.disabled #dBtnIMG {
+    -fx-image: url(../media/hangman/letter-d-color-3.png);
+}
+
+#fBtnIMG {
+    -fx-image: url(../media/hangman/letter-f-color.png);
+}
+
+#fBtn:hover #fBtnIMG {
+    -fx-image: url(../media/hangman/letter-f-color-2.png);
+}
+
+#fBtn.disabled #fBtnIMG {
+    -fx-image: url(../media/hangman/letter-f-color-3.png);
+}
+
+#gBtnIMG {
+    -fx-image: url(../media/hangman/letter-g-color.png);
+}
+
+#gBtn:hover #gBtnIMG {
+    -fx-image: url(../media/hangman/letter-g-color-2.png);
+}
+
+#gBtn.disabled #gBtnIMG {
+    -fx-image: url(../media/hangman/letter-g-color-3.png);
+}
+
+#hBtnIMG {
+    -fx-image: url(../media/hangman/letter-h-color.png);
+}
+
+#hBtn:hover #hBtnIMG {
+    -fx-image: url(../media/hangman/letter-h-color-2.png);
+}
+
+#hBtn.disabled #hBtnIMG {
+    -fx-image: url(../media/hangman/letter-h-color-3.png);
+}
+
+#jBtnIMG {
+    -fx-image: url(../media/hangman/letter-j-color.png);
+}
+
+#jBtn:hover #jBtnIMG {
+    -fx-image: url(../media/hangman/letter-j-color-2.png);
+}
+
+#jBtn.disabled #jBtnIMG {
+    -fx-image: url(../media/hangman/letter-j-color-3.png);
+}
+
+#kBtnIMG {
+    -fx-image: url(../media/hangman/letter-k-color.png);
+}
+
+#kBtn:hover #kBtnIMG {
+    -fx-image: url(../media/hangman/letter-k-color-2.png);
+}
+
+#kBtn.disabled #kBtnIMG {
+    -fx-image: url(../media/hangman/letter-k-color-3.png);
+}
+
+#lBtnIMG {
+    -fx-image: url(../media/hangman/letter-l-color.png);
+}
+
+#lBtn:hover #lBtnIMG {
+    -fx-image: url(../media/hangman/letter-l-color-2.png);
+}
+
+#lBtn.disabled #lBtnIMG {
+    -fx-image: url(../media/hangman/letter-l-color-3.png);
+}
+
+#zBtnIMG {
+    -fx-image: url(../media/hangman/letter-z-color.png);
+}
+
+#zBtn:hover #zBtnIMG {
+    -fx-image: url(../media/hangman/letter-z-color-2.png);
+}
+
+#zBtn.disabled #zBtnIMG {
+    -fx-image: url(../media/hangman/letter-z-color-3.png);
+}
+
+#xBtnIMG {
+    -fx-image: url(../media/hangman/letter-x-color.png);
+}
+
+#xBtn:hover #xBtnIMG {
+    -fx-image: url(../media/hangman/letter-x-color-2.png);
+}
+
+#xBtn.disabled #xBtnIMG {
+    -fx-image: url(../media/hangman/letter-x-color-3.png);
+}
+
+#cBtnIMG {
+    -fx-image: url(../media/hangman/letter-c-color.png);
+}
+
+#cBtn:hover #cBtnIMG {
+    -fx-image: url(../media/hangman/letter-c-color-2.png);
+}
+
+#cBtn.disabled #cBtnIMG {
+    -fx-image: url(../media/hangman/letter-c-color-3.png);
+}
+
+#vBtnIMG {
+    -fx-image: url(../media/hangman/letter-v-color.png);
+}
+
+#vBtn:hover #vBtnIMG {
+    -fx-image: url(../media/hangman/letter-v-color-2.png);
+}
+
+#vBtn.disabled #vBtnIMG {
+    -fx-image: url(../media/hangman/letter-v-color-3.png);
+}
+
+#bBtnIMG {
+    -fx-image: url(../media/hangman/letter-b-color.png);
+}
+
+#bBtn:hover #bBtnIMG {
+    -fx-image: url(../media/hangman/letter-b-color-2.png);
+}
+
+#bBtn.disabled #bBtnIMG {
+    -fx-image: url(../media/hangman/letter-b-color-3.png);
+}
+
+#nBtnIMG {
+    -fx-image: url(../media/hangman/letter-n-color.png);
+}
+
+#nBtn:hover #nBtnIMG {
+    -fx-image: url(../media/hangman/letter-n-color-2.png);
+}
+
+#nBtn.disabled #nBtnIMG {
+    -fx-image: url(../media/hangman/letter-n-color-3.png);
+}
+
+#mBtnIMG {
+    -fx-image: url(../media/hangman/letter-m-color.png);
+}
+
+#mBtn:hover #mBtnIMG {
+    -fx-image: url(../media/hangman/letter-m-color-2.png);
+}
+
+#mBtn.disabled #mBtnIMG {
+    -fx-image: url(../media/hangman/letter-m-color-3.png);
+}

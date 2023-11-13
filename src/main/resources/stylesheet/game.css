@@ -1,0 +1,97 @@
+#gameScene {
+    -fx-background-color: transparent;
+    -fx-background-radius: 10px;
+}
+
+#gameSelectScene {
+    -fx-background-color: white;
+    -fx-background-radius: 10px;
+}
+
+.split-pane-divider {
+    -fx-background-color: transparent;
+}
+
+.split-pane-divider {
+    -fx-background-color: transparent;
+}
+
+.text-field {
+    -fx-background-radius: 10px;
+}
+
+.list-view {
+    -fx-background-color: #b0c6cb;
+    -fx-background-radius: 10px;
+}
+
+.list-view .scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+
+.list-view .scroll-bar:vertical .thumb {
+    -fx-background-color: #8aa7ad;
+}
+
+.list-cell {
+    -fx-background-color: #b0c6cb;
+    -fx-text-fill: black;
+}
+
+.list-cell:selected {
+    -fx-background-color: #8aa7ad;
+    -fx-text-fill: white;
+}
+
+.list-cell:hover {
+    -fx-background-color: #8aa7ad;
+    -fx-text-fill: white;
+}
+
+.table-view {
+    -fx-background-color: white;
+}
+
+.table-row-cell {
+    -fx-background-color: white;
+}
+
+.table-row-cell:hover {
+    -fx-background-color: #c8d9dd;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #8aa7ad;
+}
+
+#removeBtnIMG {
+    -fx-image: url(../media/remove-color.png);
+}
+
+#removeBtn.active #removeBtnIMG, #removeBtn:hover #removeBtnIMG {
+    -fx-image: url(../media/remove-color-2.png);
+}
+
+#removeAllBtnIMG {
+    -fx-image: url(../media/trash-bin-color.png);
+}
+
+#removeAllBtn.active #removeAllBtnIMG, #removeAllBtn:hover #removeAllBtnIMG {
+    -fx-image: url(../media/trash-bin-color-2.png);
+}
+
+#quizBtnIMG {
+    -fx-image: url(../media/quiz-color.png);
+}
+
+#quizBtn.active #quizBtnIMG, #quizBtn:hover #quizBtnIMG {
+    -fx-image: url(../media/quiz-color-2.png);
+}
+
+#hangmanBtnIMG {
+    -fx-image: url(../media/hangman-color.png);
+}
+
+#hangmanBtn.active #hangmanBtnIMG, #hangmanBtn:hover #hangmanBtnIMG {
+    -fx-image: url(../media/hangman-color-2.png);
+}

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.ImageView?>
+
+<StackPane fx:id="hangmanScene" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="400.0" minWidth="600.0" stylesheets="@../stylesheet/hangman.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.Hangman">
+    <children>
+        <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="400.0" minWidth="600.0" StackPane.alignment="CENTER">
+            <children>
+                <ImageView fx:id="imageView" fitHeight="185.0" fitWidth="190.0" layoutX="356.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0" />
+                <Label fx:id="questionLabel" layoutX="32.0" layoutY="24.0" prefHeight="94.0" prefWidth="262.0" text="//Q" />
+                <Label layoutX="36.0" layoutY="133.0" text="Guess the word:" />
+                <Label fx:id="blankLabel" layoutX="37.0" layoutY="159.0" text="//Blank" />
+                <Label layoutX="32.0" layoutY="214.0" text="Choose a letter:" />
+                <VBox alignment="CENTER" layoutX="30.0" layoutY="250.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                    <children>
+                        <HBox VBox.vgrow="ALWAYS">
+                            <children>
+                        <Region HBox.hgrow="ALWAYS" />
+                                <Button fx:id="qBtn" mnemonicParsing="false" onAction="#checkLetter">
+                           <graphic>
+                              <ImageView fx:id="qBtnIMG" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic></Button>
+                                <Button fx:id="wBtn" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#checkLetter">
+                           <graphic>
+                              <ImageView fx:id="wBtnIMG" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic></Button>
+                                <Button fx:id="eBtn" layoutX="62.0" layoutY="10.0" mnemonicParsing="false" onAction="#checkLetter">
+                           <graphic>
+                              <ImageView fx:id="eBtnIMG" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic></Button>
+                                <Button fx:id="rBtn" layoutX="114.0" layoutY="10.0" mnemonicParsing="false" onAction="#checkLetter">
+                           <graphic>
+                              <ImageView fx:id="rBtnIMG" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic></Button>
+                                <Button fx:id="tBtn" layoutX="166.0" layoutY="10.0" mnemonicParsing="false" onAction="#checkLetter">
+                           <graphic>
+                              <ImageView fx:id="tBtnIMG" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic></Button>
+                                <Button fx:id="yBtn" layoutX="218.0" layoutY="10.0" mnemonicParsing="false" onAction="#checkLetter">
+                           <graphic>
+                              <ImageView fx:id="yBtnIMG" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic></Button>
+                                <Button fx:id="uBtn" layoutX="270.0" layoutY="10.0" mnemonicParsing="false" onAction="#checkLetter">
+                           <graphic>
+                              <ImageView fx:id="uBtnIMG" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic></Button>
+                                <Button fx:id="iBtn" layoutX="293.0" layoutY="10.0" mnemonicParsing="false" onAction="#checkLetter">
+                           <graphic>
+                              <ImageView fx:id="iBtnIMG" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic></Button>
+                                <Button fx:id="oBtn" layoutX="299.0" layoutY="10.0" mnemonicParsing="false" onAction="#checkLetter">
+                           <graphic>
+                              <ImageView fx:id="oBtnIMG" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic></Button>
+                                <Button fx:id="pBtn" layoutX="303.0" layoutY="10.0" mnemonicParsing="false" onAction="#checkLetter">
+                           <graphic>
+                              <ImageView fx:id="pBtnIMG" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic></Button>
+                        <Region HBox.hgrow="ALWAYS" />
+                            </children>
+                        </HBox>
+                        <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" VBox.vgrow="ALWAYS">
+                            <children>
+                        <Region maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
+                                <Button fx:id="aBtn" mnemonicParsing="false" onAction="#checkLetter">
+                           <graphic>
+                              <ImageView fx:id="aBtnIMG" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic></Button>
+                                <Button fx:id="sBtn" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#checkLetter">
+                           <graphic>
+                              <ImageView fx:id="sBtnIMG" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic></Button>
+                                <Button fx:id="dBtn" layoutX="62.0" layoutY="10.0" mnemonicParsing="false" onAction="#checkLetter">
+                           <graphic>
+                              <ImageView fx:id="dBtnIMG" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic></Button>
+                                <Button fx:id="fBtn" layoutX="114.0" layoutY="10.0" mnemonicParsing="false" onAction="#checkLetter">
+                           <graphic>
+                              <ImageView fx:id="fBtnIMG" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic></Button>
+                                <Button fx:id="gBtn" layoutX="166.0" layoutY="10.0" mnemonicParsing="false" onAction="#checkLetter">
+                           <graphic>
+                              <ImageView fx:id="gBtnIMG" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic></Button>
+                                <Button fx:id="hBtn" layoutX="166.0" layoutY="10.0" mnemonicParsing="false" onAction="#checkLetter">
+                           <graphic>
+                              <ImageView fx:id="hBtnIMG" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic></Button>
+                                <Button fx:id="jBtn" layoutX="114.0" layoutY="10.0" mnemonicParsing="false" onAction="#checkLetter">
+                           <graphic>
+                              <ImageView fx:id="jBtnIMG" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic></Button>
+                                <Button fx:id="kBtn" layoutX="198.0" layoutY="10.0" mnemonicParsing="false" onAction="#checkLetter">
+                           <graphic>
+                              <ImageView fx:id="kBtnIMG" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic></Button>
+                                <Button fx:id="lBtn" layoutX="175.0" layoutY="10.0" mnemonicParsing="false" onAction="#checkLetter">
+                           <graphic>
+                              <ImageView fx:id="lBtnIMG" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic></Button>
+                        <Region HBox.hgrow="ALWAYS" />
+                            </children></HBox>
+                        <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" VBox.vgrow="ALWAYS">
+                            <children>
+                        <Region HBox.hgrow="ALWAYS" />
+                                <Button fx:id="zBtn" mnemonicParsing="false" onAction="#checkLetter">
+                           <graphic>
+                              <ImageView fx:id="zBtnIMG" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic></Button>
+                                <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#checkLetter" fx:id="xBtn">
+                           <graphic>
+                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" fx:id="xBtnIMG" />
+                           </graphic></Button>
+                                <Button fx:id="cBtn" layoutX="62.0" layoutY="10.0" mnemonicParsing="false" onAction="#checkLetter">
+                           <graphic>
+                              <ImageView fx:id="cBtnIMG" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic></Button>
+                                <Button fx:id="vBtn" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#checkLetter">
+                           <graphic>
+                              <ImageView fx:id="vBtnIMG" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic></Button>
+                                <Button fx:id="bBtn" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#checkLetter">
+                           <graphic>
+                              <ImageView fx:id="bBtnIMG" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic></Button>
+                                <Button fx:id="nBtn" layoutX="218.0" layoutY="10.0" mnemonicParsing="false" onAction="#checkLetter">
+                           <graphic>
+                              <ImageView fx:id="nBtnIMG" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic></Button>
+                                <Button fx:id="mBtn" layoutX="166.0" layoutY="10.0" mnemonicParsing="false" onAction="#checkLetter">
+                           <graphic>
+                              <ImageView fx:id="mBtnIMG" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic></Button>
+                        <Region HBox.hgrow="ALWAYS" />
+                            </children></HBox>
+                    </children>
+                </VBox>
+            </children>
+        </AnchorPane>
+    </children>
+
+</StackPane>

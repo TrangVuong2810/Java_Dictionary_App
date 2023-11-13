@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane fx:id="quizScene" minHeight="400.0" minWidth="600.0" stylesheets="@../stylesheet/quiz.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.Quiz">
+   <children>
+      <AnchorPane minHeight="400.0" minWidth="600.0">
+         <children>
+            <Label fx:id="questionLabel" layoutX="43.0" layoutY="23.0" prefHeight="92.0" prefWidth="458.0" />
+            <VBox layoutX="33.0" layoutY="129.0" prefHeight="236.0" prefWidth="515.0" spacing="30.0">
+               <children>
+                  <RadioButton fx:id="opt1" mnemonicParsing="false" prefHeight="27.0" prefWidth="441.0" />
+                  <RadioButton fx:id="opt2" mnemonicParsing="false" prefHeight="27.0" prefWidth="439.0" />
+                  <RadioButton fx:id="opt3" mnemonicParsing="false" prefHeight="27.0" prefWidth="442.0" />
+                  <RadioButton fx:id="opt4" mnemonicParsing="false" prefHeight="27.0" prefWidth="438.0" />
+               </children>
+               <padding>
+                  <Insets left="20.0" top="20.0" />
+               </padding>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </children>
+</StackPane>

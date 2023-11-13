@@ -1,13 +1,11 @@
 package main;
 
-import base.Trie;
-import base.WordBookmarkLinkedList;
-import base.WordHistoryLinkedList;
-import base.WordLinkedList;
+import base.*;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -48,7 +46,9 @@ public class DictionaryApplication extends Application {
             statement.close();
             connection.close();
         } catch (SQLException e) {
-            System.out.println("ERROR IN LOAD FROM DATABASE");
+            CustomAlert customAlert = new CustomAlert("INIT APP ERROR",
+                    "Error occurred related to database, " + "\n" +
+                            "please contact the developers for more information", Alert.AlertType.ERROR);
             e.printStackTrace();
         }
     }
@@ -61,7 +61,9 @@ public class DictionaryApplication extends Application {
             scene = new Scene(fxmlLoader.load());
             homescreenController = fxmlLoader.getController();
         } catch (Exception e) {
-            System.out.println("ERROR IN INIT HOMESCREEN");
+            CustomAlert customAlert = new CustomAlert("INIT HOMESCREEN ERROR",
+                    "Error occurred initiating homescreen " + "\n" +
+                            "please contact the developers for more information", Alert.AlertType.ERROR);
             e.printStackTrace();
         }
         loadFromDatabase();

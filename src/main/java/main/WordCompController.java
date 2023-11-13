@@ -1,11 +1,14 @@
 package main;
 
+import base.CustomAlert;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.media.*;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.io.*;
 
@@ -21,9 +24,9 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
+import java.util.Currency;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import static main.DictionaryApplication.*;
 
@@ -45,6 +48,8 @@ public class WordCompController {
     @FXML
     private Label wordTypeLabel;
     @FXML
+    private Label wordSynonymLabel;
+    @FXML
     public TextArea wordSynonym;
 
     private MediaPlayer mediaPlayer;
@@ -53,6 +58,11 @@ public class WordCompController {
     private String deleteQuery;
 
     public void displayWord(String selectedWord) {
+        wordSynonymLabel.getStyleClass().add("active");
+        wordPronunButton.getStyleClass().add("active");
+        wordBookmarkButton.getStyleClass().add("active");
+        wordEditButton.getStyleClass().add("active");
+        wordDeleteButton.getStyleClass().add("active");
         wordLabel.setText(selectedWord);
 
         Thread textToSpeechThread = new Thread(() -> {
@@ -94,10 +104,17 @@ public class WordCompController {
             try {
                 textToSpeechThread.join();
                 if (event.getClickCount() == 1) {
-                    mediaPlayer.play();
+                    if (mediaPlayer != null) {
+                        mediaPlayer.play();
+                    } else {
+                        CustomAlert customAlert = new CustomAlert("WORD AUDIO ERROR",
+                                "please check your connection or " + "\n" +
+                                "contact devs for more info", Alert.AlertType.ERROR);
+                    }
                 }
             } catch (InterruptedException e) {
-                System.out.println("HAVENT FINISHED GETTING WORD PRONUN");
+                System.out.println("HAVENT FINISHED GETTING AUDIO");
+                wordPronunButton.getStyleClass().add("loading");
                 e.printStackTrace();
             }
         });
@@ -110,12 +127,20 @@ public class WordCompController {
         wordDeleteButton.setOnMouseClicked(mouseEvent -> {
             deleteWord(selectedWord);
         });
+
+        wordEditButton.setOnMouseClicked(mouseEvent -> {
+            editWord(selectedWord);
+        });
     }
 
 
     public void bookmarkWord(String selectedWord) {
-        System.out.println("SELECTED WORD: " + selectedWord);
-        wordBookmark.add(selectedWord);
+        System.out.println("BOOKMARK WORD: " + selectedWord);
+        boolean check = !wordBookmark.checkDuplicateValue(selectedWord);
+        if (wordBookmark.add(selectedWord)) {
+            if (check) CustomAlert.popUp("Un-bookmarked word");
+            else CustomAlert.popUp("Bookmark word");
+        }
     }
 
     public void deleteWord(String selectedWord) {
@@ -151,8 +176,29 @@ public class WordCompController {
     }
 
 
-    public void editWord() {
+    public void editWord(String selectedWord) {
+        Stage editWindow = new Stage();
+        Scene editScene = null;
+        EditWordController editWordController = null;
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("editWord.fxml"));
+            editScene = new Scene(fxmlLoader.load());
+            editWordController = fxmlLoader.getController();
+        } catch (Exception e) {
+            System.out.println("ERROR IN INIT");
+            e.printStackTrace();
+        }
+        editWindow.setTitle("Edit Word");
+        editWindow.setScene(editScene);
+        editWindow.initModality(Modality.APPLICATION_MODAL);
+        editWindow.setMinWidth(600);
+        editWindow.setMinHeight(500);
+        editWindow.show();
+        editWindow.setOnCloseRequest(e -> {
+            editWindow.close();
+        });
 
+        editWordController.run(selectedWord);
     }
 
     public void getPronunAudio(String selectedWord) {
@@ -179,6 +225,9 @@ public class WordCompController {
                 }
 
                 mediaPlayer = new MediaPlayer(new Media(audioFile.toURI().toString()));
+                mediaPlayer.setOnReady(() -> {
+                    wordPronunButton.getStyleClass().removeAll("loading");
+                });
 
                 outputStream.close();
                 inputStream.close();
@@ -188,6 +237,8 @@ public class WordCompController {
 
             connection.disconnect();
         } catch (Exception e) {
+            System.out.println("ERROR IN CONNECTIN TO VOICE API");
+
             e.printStackTrace();
         }
     }

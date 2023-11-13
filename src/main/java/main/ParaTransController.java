@@ -1,8 +1,12 @@
 package main;
 
+import base.CustomAlert;
+import com.fasterxml.jackson.core.JsonToken;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -15,8 +19,10 @@ import java.net.*;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.Scanner;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class ParaTransController {
     @FXML
@@ -43,12 +49,15 @@ public class ParaTransController {
     private MediaPlayer mediaPlayerTarget;
     private String sourceLang;
     private String targetLang;
+    private boolean isTargetAudioAvailable = false;
 
     public void setUp(){
         sourceLangLabel.setText("Tiếng Anh");
         sourceLang = "en";
         targetLangLabel.setText("Tiếng Việt");
         targetLang = "vi";
+        //mediaPlayerSource = new MediaPlayer();
+        //mediaPlayerTarget = new MediaPlayer();
     }
 
     public void initializeExecutorService() {
@@ -90,26 +99,65 @@ public class ParaTransController {
         }
     };
 
+
+    public void playSourceAudio(int cnt) {
+        System.out.println("EY: " + cnt);
+        if (mediaPlayerSource != null) {
+            sourceAudioButton.getStyleClass().removeAll("loading");
+            mediaPlayerSource.play();
+        } else if (cnt == 5) {
+            sourceAudioButton.getStyleClass().removeAll("loading");
+            CustomAlert customAlert = new CustomAlert("AUDIO ERROR",
+                    "Error in source audio file, please check your connection\n" +
+                    "or contact devs for more information", Alert.AlertType.ERROR);
+        } else {
+            System.out.println("WAIT 1 SEC");
+            Thread waitThread = new Thread(() -> {
+                if (mediaPlayerSource == null) {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                Platform.runLater(() -> {
+                    playSourceAudio(cnt + 1);
+                });
+            });
+            waitThread.start();
+        }
+    }
+
+
     public void handlePlayAudio() {
         sourceAudioButton.setOnMouseClicked(event -> {
+            inputTextArea.textProperty().removeListener(inputTextChangeListener);
+            inputTextArea.textProperty().addListener(inputTextChangeListener);
             if (event.getClickCount() == 1) {
-                inputTextArea.textProperty().removeListener(inputTextChangeListener);
-                inputTextArea.textProperty().addListener(inputTextChangeListener);
                 if (mediaPlayerSource != null) {
-                    if (mediaPlayerSource.getStatus() == MediaPlayer.Status.PLAYING) {
-                        mediaPlayerSource.stop();
-                    }
+                    mediaPlayerSource.stop();
                     mediaPlayerSource.play();
+                } else {
+                    sourceAudioButton.getStyleClass().add("loading");
+                    playSourceAudio(0);
+
                 }
             }
         });
         targetAudioButton.setOnMouseClicked(event -> {
+            if (!isTargetAudioAvailable) {
+                CustomAlert customAlert = new CustomAlert("AUDIO ERROR",
+                        "Please check your target text area\n" +
+                        "for more info, contact devs", Alert.AlertType.ERROR);
+                return;
+            }
             if (event.getClickCount() == 1) {
                 if (mediaPlayerTarget != null) {
-                    if (mediaPlayerTarget.getStatus() == MediaPlayer.Status.PLAYING) {
-                        mediaPlayerTarget.stop();
-                    }
+                    mediaPlayerTarget.stop();
                     mediaPlayerTarget.play();
+                } else {
+                    targetAudioButton.getStyleClass().add("loading");
+                    playSourceAudio(0);
                 }
             }
         });
@@ -117,38 +165,35 @@ public class ParaTransController {
 
     public void translate(String searchQuery) {
         Runnable translationTask = () -> {
+            translateButton.getStyleClass().add("loading");
             performTranslation(searchQuery, sourceLang, targetLang);
         };
 
-        Runnable textToSpeechTask;
-        if (sourceLang.equals("en")) {
-            textToSpeechTask = () -> connectTextToSpeech(searchQuery, "en-us", AUDIO_PATH_EN);
-        }
-        else {
-            textToSpeechTask = () -> connectTextToSpeech(searchQuery, "vi-vn", AUDIO_PATH_VI);
-        }
+         executorService.submit(() -> {
+            if (sourceLang.equals("en")) {
+                connectTextToSpeech(searchQuery, "en-us", AUDIO_PATH_EN);
+            }
+            else {
+                connectTextToSpeech(searchQuery, "vi-vn", AUDIO_PATH_VI);
+            }
+        });
 
-        executorService.submit(textToSpeechTask);
         executorService.submit(translationTask);
     }
 
 
     public void close() {
+        translateButton.getStyleClass().removeAll("loading");
         if (executorService != null) executorService.shutdownNow();
         if (mediaPlayerSource != null) {
-            if (mediaPlayerSource.getStatus() == MediaPlayer.Status.PLAYING) {
-                mediaPlayerSource.stop();
-            }
+            mediaPlayerSource.stop();
             mediaPlayerSource.dispose();
         }
         if (mediaPlayerTarget != null) {
-            if (mediaPlayerTarget.getStatus() == MediaPlayer.Status.PLAYING) {
-                mediaPlayerTarget.stop();
-            }
+            mediaPlayerTarget.stop();
             mediaPlayerTarget.dispose();
         }
         inputTextArea.textProperty().removeListener(inputTextChangeListener);
-        System.out.println("SHUT DOWN PARA");
     }
 
     public void connectTextToSpeech(String text, String lang, String filePath) {
@@ -174,27 +219,47 @@ public class ParaTransController {
                 }
 
                 if (filePath.equals(AUDIO_PATH_EN)) {
-                    if (sourceLang.equals("en")) mediaPlayerSource = new MediaPlayer(new Media(audioFile.toURI().toString()));
-                    else mediaPlayerTarget = new MediaPlayer(new Media(audioFile.toURI().toString()));
+                    if (sourceLang.equals("en")) {
+                        mediaPlayerSource = new MediaPlayer(new Media(audioFile.toURI().toString()));
+                        mediaPlayerSource.setOnReady(() -> {
+                            sourceAudioButton.getStyleClass().removeAll("loading");
+                        });
+                    }
+                    else {
+                        mediaPlayerTarget = new MediaPlayer(new Media(audioFile.toURI().toString()));
+                        mediaPlayerTarget.setOnReady(() -> {
+                            targetAudioButton.getStyleClass().removeAll("loading");
+                        });
+                    }
                 }
                 else {
                     if (sourceLang.equals("vi")) {
-                        System.out.println("EYYY");
                         mediaPlayerSource = new MediaPlayer(new Media(audioFile.toURI().toString()));
+                        mediaPlayerSource.setOnReady(() -> {
+                            sourceAudioButton.getStyleClass().removeAll("loading");
+                        });
                     }
-                    else mediaPlayerTarget = new MediaPlayer(new Media(audioFile.toURI().toString()));
+                    else {
+                        mediaPlayerTarget = new MediaPlayer(new Media(audioFile.toURI().toString()));
+                        mediaPlayerTarget.setOnReady(() -> {
+                            targetAudioButton.getStyleClass().removeAll("loading");
+                        });
+                    }
                 }
-                //mediaPlayer.play();
-
                 outputStream.close();
                 inputStream.close();
             } else {
+                CustomAlert customAlert = new CustomAlert("AUDIO ERROR",
+                        "Unable to connect to audio API, response code: " + responseCode +
+                        "\nPlease contact devs for more info", Alert.AlertType.ERROR);
                 System.out.println("Request failed with response code: " + responseCode);
             }
 
             connection.disconnect();
         } catch (Exception e) {
-            System.out.println("ERROR IN PARA AUDIO");
+            CustomAlert customAlert = new CustomAlert("AUDIO ERROR",
+                    "Unable to connect to audio API, response code: " +
+                            "\nPlease contact devs for more info", Alert.AlertType.ERROR);
             e.printStackTrace();
         }
     }
@@ -224,7 +289,11 @@ public class ParaTransController {
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");
 
+
+                System.out.println("CHECK");
                 int responseCode = connection.getResponseCode();
+                System.out.println("HUHHHH");
+                System.out.println(responseCode);
                 if (responseCode == HttpURLConnection.HTTP_OK) {
                     InputStream inputStream = connection.getInputStream();
                     InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
@@ -234,13 +303,20 @@ public class ParaTransController {
                     while ((line = reader.readLine()) != null) {
                         response.append(line);
                     }
+                    System.out.println("WAIT WUT");
+                    isTargetAudioAvailable = true;
                     reader.close();
                     inputStreamReader.close();
                     inputStream.close();
 
                     translationBuilder.append(parseTranslation(response.toString())).append(". ");
                 } else {
+                    System.out.println("PRINT TF OUT");
+                    CustomAlert customAlert = new CustomAlert("TRANSLATION ERROR",
+                            "Unable to connect to translate API\n Request fail with response" +
+                            "code: " + responseCode + "\nPlease contact devs for more info", Alert.AlertType.ERROR);
                     System.out.println("Request failed with response code: " + responseCode);
+                    isTargetAudioAvailable = false;
                 }
                 connection.disconnect();
             }
@@ -249,16 +325,25 @@ public class ParaTransController {
 
             outputTextArea.setText(translation);
 
-            if (targetLang.equals("en")) {
-                connectTextToSpeech(translation, "en-us", AUDIO_PATH_EN);
-            }
-            else {
-                connectTextToSpeech(translation, "vi-vn", AUDIO_PATH_VI);
+            if (isTargetAudioAvailable) {
+                if (targetLang.equals("en")) {
+                    connectTextToSpeech(translation, "en-us", AUDIO_PATH_EN);
+                }
+                else {
+                    connectTextToSpeech(translation, "vi-vn", AUDIO_PATH_VI);
+                }
             }
 
         } catch (Exception e) {
-            System.out.println("ERROR IN API GG TRANS AND VI_VN AUDIO");
+            Platform.runLater(() -> {
+                CustomAlert customAlert = new CustomAlert("ERROR",
+                        "Please check your connection\n" +
+                                "for more info, contact the devs", Alert.AlertType.ERROR);
+        });
             e.printStackTrace();
+
+        } finally {
+            translateButton.getStyleClass().removeAll("loading");
         }
     }
 

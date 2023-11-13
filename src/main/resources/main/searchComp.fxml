@@ -33,7 +33,7 @@
                </padding></ListView>
          </children>
          <padding>
-            <Insets right="10.0" top="10.0" />
+            <Insets bottom="10.0" right="10.0" top="10.0" />
          </padding></VBox>
       <fx:include fx:id="wordComp" source="wordComp.fxml">
 
