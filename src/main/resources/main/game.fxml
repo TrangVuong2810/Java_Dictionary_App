@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.*?>
-<?import javafx.geometry.*?>
 <?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
 <SplitPane fx:id="gameScene" dividerPositions="0.3" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" stylesheets="@../stylesheet/game.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.GameController">
@@ -38,10 +36,11 @@
       </VBox>
       <VBox fx:id="gameSelectScene" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="500.0">
          <children>
-            <TableView fx:id="tableView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
+            <TableView fx:id="tableView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="400.0" prefWidth="464.0" VBox.vgrow="ALWAYS">
               <columns>
-                <TableColumn fx:id="wTargetCol" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="220.0" text="English words"/>
-                 <TableColumn fx:id="wExplainCol" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="220.0" text="Meaning" />
+                <TableColumn fx:id="wTargetCol" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="148.0" text="English words" />
+                 <TableColumn fx:id="wExplainCol" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="201.0" text="Meaning" />
+                  <TableColumn fx:id="wIpaCol" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="95.0" text="IPA" />
               </columns>
                <VBox.margin>
                   <Insets bottom="30.0" />

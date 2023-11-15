@@ -2,7 +2,6 @@ package main;
 
 import base.*;
 import game.Game;
-import game.Quiz;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -11,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.input.MouseEvent;
@@ -44,6 +44,8 @@ public class GameController {
     private TableColumn<Word, String> wTargetCol  = new TableColumn<>();
     @FXML
     private TableColumn<Word, String> wExplainCol = new TableColumn<>();
+    @FXML
+    private TableColumn<Word, String> wIpaCol = new TableColumn<>();
     private final ObservableList<String> wordList = FXCollections.observableArrayList();
     private final ObservableList<Word> QList = FXCollections.observableArrayList();
     public void setUpGameController() {
@@ -99,6 +101,7 @@ public class GameController {
             if (event.getClickCount() == 1 && cnt < MAX_QUES) {
                 String selectedWord = listView.getSelectionModel().getSelectedItem();
                 String meaning = "";
+                String ipa = "";
                 if (!checkDuplicate(selectedWord)){
                     try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
                         String sql = "SELECT * FROM vocabulary WHERE word_target = ?";
@@ -107,11 +110,12 @@ public class GameController {
                         ResultSet resultSet = statement.executeQuery();
                         if (resultSet.next()) {
                             meaning = resultSet.getString("word_explain");
+                            ipa = resultSet.getString("ipa");
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    QList.add(new Word(selectedWord, meaning));
+                    QList.add(new Word(selectedWord, meaning, ipa));
                     cnt++;
                 } else {
                     Alert duplicateAlert = new Alert(Alert.AlertType.ERROR);
@@ -178,6 +182,7 @@ public class GameController {
         QList.clear();
         wTargetCol.setCellValueFactory(new PropertyValueFactory<Word, String>("word_target"));
         wExplainCol.setCellValueFactory(new PropertyValueFactory<Word, String>("word_explain"));
+        wIpaCol.setCellValueFactory(new PropertyValueFactory<Word, String>("ipa"));
         tableView.setItems(QList);
     }
 
@@ -187,6 +192,11 @@ public class GameController {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/game/gamescreen.fxml"));
             scene = new Scene(fxmlLoader.load());
+//            scene.setOnKeyPressed(keyEvent -> {
+//                if (keyEvent.getCode() == KeyCode.ENTER) {
+//                    game.getNextBtn().fire();
+//                }
+//            });
             game = fxmlLoader.getController();
         } catch (Exception e) {
             System.out.println("ERROR IN INIT");
@@ -202,7 +212,7 @@ public class GameController {
             gameStage.close();
         });
         game.startTimer();
-        game.questionCount.setText("Question: " + "1/" + QList.size());
+        game.questionCount.setText("Question: " + "1/" + 2 * QList.size());
         game.setQuestionList(QList);
     }
 

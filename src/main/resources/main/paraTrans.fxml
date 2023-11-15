@@ -12,18 +12,18 @@
    <children>
       <VBox>
          <children>
-            <Label text="Paragraph Translate">
+            <Label styleClass="h1" text="Paragraph Translate">
                <VBox.margin>
                   <Insets left="20.0" top="10.0" />
                </VBox.margin>
             </Label>
             <HBox VBox.vgrow="ALWAYS">
                <children>
-                  <VBox>
+                  <VBox HBox.hgrow="ALWAYS">
                      <children>
                         <HBox>
                            <children>
-                              <Label fx:id="sourceLangLabel" contentDisplay="CENTER" wrapText="true" HBox.hgrow="ALWAYS" />
+                              <Label fx:id="sourceLangLabel" contentDisplay="CENTER" styleClass="h2" wrapText="true" HBox.hgrow="ALWAYS" />
                               <Region HBox.hgrow="ALWAYS" />
                               <Button fx:id="sourceAudioButton" contentDisplay="CENTER" mnemonicParsing="false" HBox.hgrow="ALWAYS">
                                  <graphic>
@@ -35,10 +35,10 @@
                                  </tooltip></Button>
                            </children>
                         </HBox>
-                        <TextArea fx:id="inputTextArea" wrapText="true" VBox.vgrow="ALWAYS" />
+                        <TextArea fx:id="inputTextArea" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="normal" wrapText="true" VBox.vgrow="ALWAYS" />
                      </children>
                   </VBox>
-                  <VBox>
+                  <VBox HBox.hgrow="ALWAYS">
                      <children>
                         <Button fx:id="swapButton" mnemonicParsing="false">
                            <graphic>
@@ -58,11 +58,11 @@
                            </tooltip></Button>
                      </children>
                   </VBox>
-                  <VBox>
+                  <VBox HBox.hgrow="ALWAYS">
                      <children>
                         <HBox>
                            <children>
-                              <Label fx:id="targetLangLabel" alignment="CENTER" contentDisplay="CENTER" textAlignment="CENTER" wrapText="true" HBox.hgrow="ALWAYS" />
+                              <Label fx:id="targetLangLabel" alignment="CENTER" contentDisplay="CENTER" styleClass="h2" textAlignment="CENTER" wrapText="true" HBox.hgrow="ALWAYS" />
                               <Region HBox.hgrow="ALWAYS" />
                               <Button fx:id="targetAudioButton" contentDisplay="CENTER" mnemonicParsing="false" HBox.hgrow="ALWAYS">
                                  <graphic>
@@ -74,7 +74,7 @@
                                  </tooltip></Button>
                            </children>
                         </HBox>
-                        <TextArea fx:id="outputTextArea" editable="false" wrapText="true" VBox.vgrow="ALWAYS" />
+                        <TextArea fx:id="outputTextArea" editable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="normal" wrapText="true" VBox.vgrow="ALWAYS" />
                      </children>
                   </VBox>
                </children>

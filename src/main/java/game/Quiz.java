@@ -25,10 +25,10 @@ public class Quiz extends MyGame implements Initializable {
     private RadioButton opt4;
     private ToggleGroup toggleGroup;
     private final List<String> meaning = new ArrayList<>();
+    private final List<String> eword = new ArrayList<>();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        isAnswered = false;
         toggleGroup = new ToggleGroup();
         opt1.setToggleGroup(toggleGroup);
         opt2.setToggleGroup(toggleGroup);
@@ -36,19 +36,55 @@ public class Quiz extends MyGame implements Initializable {
         opt4.setToggleGroup(toggleGroup);
         for (Word word : questionList) {
             meaning.add(word.getWord_explain());
+            eword.add(word.getWord_target());
         }
+        getTotalQuestion();
         updateQuestion();
     }
 
     public void updateQuestion() {
         toggleGroup.selectToggle(null);
-        questionLabel.setText("What does '" + questionList.get(currentQuestionIndex).getWord_target() + "' mean?");
-        getOptions();
+        if (doubleQuestion.get(currentQuestionIndex).getWord_explain() != null) {
+            questionLabel.setText("What does '" + doubleQuestion.get(currentQuestionIndex).getWord_target() + "' mean?");
+            getMeaningOptions();
+        } else {
+            questionLabel.setText("Which word have this ipa:  /" + doubleQuestion.get(currentQuestionIndex).getIpa() + "/");
+            getEWordOptions();
+        }
     }
 
-    public void getOptions() {
+    public void getMeaningOptions() {
         List<String> tmp = new ArrayList<>(meaning);
-        String correctOption = tmp.remove(currentQuestionIndex);
+        int index = 0;
+        String correctOption = doubleQuestion.get(currentQuestionIndex).getWord_explain();
+        for (int i = 0; i < meaning.size(); i++) {
+            if (correctOption.equals(meaning.get(i))) {
+                index = i;
+                break;
+            }
+        }
+        tmp.remove(index);
+        List<String> optionList = new ArrayList<>();
+        optionList.add(correctOption);
+        optionList.addAll(getRandomStrings(tmp, 3));
+        Collections.shuffle(optionList);
+        opt1.setText(optionList.get(0));
+        opt2.setText(optionList.get(1));
+        opt3.setText(optionList.get(2));
+        opt4.setText(optionList.get(3));
+    }
+
+    public void getEWordOptions() {
+        List<String> tmp = new ArrayList<>(eword);
+        int index = 0;
+        String correctOption = doubleQuestion.get(currentQuestionIndex).getWord_target();
+        for (int i = 0; i < eword.size(); i++) {
+            if (correctOption.equals(eword.get(i))) {
+                index = i;
+                break;
+            }
+        }
+        tmp.remove(index);
         List<String> optionList = new ArrayList<>();
         optionList.add(correctOption);
         optionList.addAll(getRandomStrings(tmp, 3));
@@ -78,12 +114,19 @@ public class Quiz extends MyGame implements Initializable {
         if (selectedToggle != null) {
             RadioButton selectedOption = (RadioButton) selectedToggle;
             String selectedAnswer = selectedOption.getText();
-            if (selectedAnswer.equals(questionList.get(currentQuestionIndex).getWord_explain())) {
-                correctAnswer++;
+            if (doubleQuestion.get(currentQuestionIndex).getWord_explain() != null) {
+                if (selectedAnswer.equals(doubleQuestion.get(currentQuestionIndex).getWord_explain())) {
+                    correctAnswer++;
+                } else {
+                    wrongAnswer++;
+                }
             } else {
-                wrongAnswer++;
+                if (selectedAnswer.equals(doubleQuestion.get(currentQuestionIndex).getWord_target())) {
+                    correctAnswer++;
+                } else {
+                    wrongAnswer++;
+                }
             }
-            isAnswered = true;
         }
     }
 }

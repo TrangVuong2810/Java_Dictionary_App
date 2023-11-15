@@ -112,7 +112,7 @@ public class SearchCompController {
                     }
                     wordCompController.displayWord(selectedWord);
 
-                    wordHistory.add(selectedWord);
+
                 }
             });
         } else if (collection instanceof WordHistoryLinkedList ||

@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -43,6 +44,10 @@ public class Game {
     @FXML
     private Tooltip nextBtnTooltip;
 
+    public Button getNextBtn() {
+        return this.nextBtn;
+    }
+
     public void quizGame() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("quiz.fxml"));
@@ -63,7 +68,6 @@ public class Game {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         hangman.init();
     }
 
@@ -94,18 +98,18 @@ public class Game {
     public void loadNextQuestion(ActionEvent event) {
         MyGame currentGame = getGame();
         currentGame.checkAnswer();
-        if (currentGame.currentQuestionIndex < questionList.size()) {
+        if (currentGame.currentQuestionIndex < 2 * questionList.size()) {
             currentGame.currentQuestionIndex++;
-            if (currentGame.currentQuestionIndex == questionList.size() - 1) {
+            if (currentGame.currentQuestionIndex == 2 * questionList.size() - 1) {
                 nextBtn.getStyleClass().add("last");
                 nextBtnTooltip.setText("Finish");
-                questionCount.setText("Question: " + (currentGame.currentQuestionIndex + 1) + "/" + questionList.size());
+                questionCount.setText("Question: " + (currentGame.currentQuestionIndex + 1) + "/" + 2 * questionList.size());
             }
-            if (currentGame.currentQuestionIndex == questionList.size()) {
+            if (currentGame.currentQuestionIndex == 2 * questionList.size()) {
                 showResult(event);
             } else {
                 currentGame.updateQuestion();
-                questionCount.setText("Question: " + (currentGame.currentQuestionIndex + 1) + "/" + questionList.size());
+                questionCount.setText("Question: " + (currentGame.currentQuestionIndex + 1) + "/" + 2 * questionList.size());
             }
         }
     }
@@ -123,10 +127,10 @@ public class Game {
             int seconds = secondsElapsed % 60;
             String time = String.format("%02d:%02d", minutes, seconds);
             controller.setTotalTimer(time);
-            controller.setCorrects(getGame().correctAnswer + "/" + questionList.size());
+            controller.setCorrects(getGame().correctAnswer + "/" + 2 * questionList.size());
             int correctAnswer = getGame().correctAnswer;
             int wrongAnswer = getGame().wrongAnswer;
-            int unAnsweredQuestion = questionList.size() - correctAnswer - wrongAnswer;
+            int unAnsweredQuestion = 2 * questionList.size() - correctAnswer - wrongAnswer;
             controller.setPieChart(correctAnswer, wrongAnswer, unAnsweredQuestion);
             stage.show();
         } catch (Exception e) {

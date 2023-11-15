@@ -1,6 +1,7 @@
 package game;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -9,6 +10,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.KeyCode;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -21,7 +24,7 @@ public class Hangman extends MyGame {
     private Button qBtn, wBtn, eBtn, rBtn, tBtn, yBtn, uBtn, iBtn, oBtn, pBtn
             , aBtn, sBtn, dBtn, fBtn, gBtn, hBtn, jBtn, kBtn, lBtn
             , zBtn, xBtn, cBtn, vBtn, bBtn, nBtn, mBtn;
-    private List<Button> letterButtons ;
+    private List<Button> letterButtons;
     private enum WWordStatus {
         CORRECT,
         INCORRECT
@@ -41,25 +44,42 @@ public class Hangman extends MyGame {
     private final Image image4 = new Image(getClass().getResourceAsStream("/hangman/hangman4.png"));
     private final Image image5 = new Image(getClass().getResourceAsStream("/hangman/hangman5.png"));
     private final Image image6 = new Image(getClass().getResourceAsStream("/hangman/hangman6.png"));
+    private final Image imageCorrect = new Image(getClass().getResourceAsStream("/hangman/hangman-correct.png"));
+    private final Image imageWrong = new Image(getClass().getResourceAsStream("/hangman/hangman-wrong.png"));
 
     public void init() {
         letterButtons = new ArrayList<>(Arrays.asList(qBtn, wBtn, eBtn, rBtn, tBtn, yBtn, uBtn, iBtn, oBtn, pBtn
                 , aBtn, sBtn, dBtn, fBtn, gBtn, hBtn, jBtn, kBtn, lBtn
                 , zBtn, xBtn, cBtn, vBtn, bBtn, nBtn, mBtn));
         wrongGuessCount = 0;
+        for (Button button : letterButtons) {
+            button.setOnKeyPressed(new KeyPressHandler());
+        }
+        getTotalQuestion();
         updateQuestion();
     }
 
     public void updateQuestion() {
         setDisable(false);
+        setFocus();
         wrongGuessCount = 0;
-        isAnswered = false;
-        String meaning = questionList.get(currentQuestionIndex).getWord_explain();
-        String wordToGuess = questionList.get(currentQuestionIndex).getWord_target();
+        String wordToGuess = doubleQuestion.get(currentQuestionIndex).getWord_target();
         currentWordState = createHiddenWord(wordToGuess);
         imageView.setImage(image0);
-        questionLabel.setText("Từ mang nghĩa '" + meaning + "'");
+        if (doubleQuestion.get(currentQuestionIndex).getWord_explain() != null) {
+            String meaning = doubleQuestion.get(currentQuestionIndex).getWord_explain();
+            questionLabel.setText("Từ mang nghĩa '" + meaning + "'");
+        } else {
+            String ipa = doubleQuestion.get(currentQuestionIndex).getIpa();
+            questionLabel.setText("Từ có phát âm: /" + ipa + "/");
+        }
         blankLabel.setText(currentWordState);
+    }
+
+    public void setFocus() {
+        for (Button button : letterButtons) {
+            button.requestFocus();
+        }
     }
 
     public void setDisable(boolean isDisabled) {
@@ -88,7 +108,7 @@ public class Hangman extends MyGame {
 
     public void checkLetter(ActionEvent event) {
         Button clickedButton = (Button) event.getSource();
-        String wordToGuess = questionList.get(currentQuestionIndex).getWord_target();
+        String wordToGuess = doubleQuestion.get(currentQuestionIndex).getWord_target();
 
         char letter = clickedButton.getId().charAt(0);
 
@@ -106,7 +126,7 @@ public class Hangman extends MyGame {
                 clickedButton.setDisable(true);
                 if (!currentWordState.contains("_")) {
                     correctAnswer++;
-                    showQuestionResultAlert("Chúc mừng!", "Bạn đã đoán đúng!\nClick Next để tiếp tục");
+                    imageView.setImage(imageCorrect);
                     setDisable(true);
                 }
                 break;
@@ -117,7 +137,6 @@ public class Hangman extends MyGame {
                 clickedButton.getStyleClass().add("disabled");
                 clickedButton.setDisable(true);
                 if (wrongGuessCount == 6) {
-                    showQuestionResultAlert("Rất tiếc!", "Bạn đã hết lượt đoán từ\nClick Next để tiếp tục");
                     setDisable(true);
                     wrongAnswer++;
                 }
@@ -133,7 +152,7 @@ public class Hangman extends MyGame {
             case 3 -> imageView.setImage(image3);
             case 4 -> imageView.setImage(image4);
             case 5 -> imageView.setImage(image5);
-            case 6 -> imageView.setImage(image6);
+            case 6 -> imageView.setImage(imageWrong);
         }
     }
 
@@ -145,11 +164,27 @@ public class Hangman extends MyGame {
         }
     }
 
-    private void showQuestionResultAlert(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
+    private class KeyPressHandler implements EventHandler<KeyEvent> {
+        @Override
+        public void handle(KeyEvent keyEvent) {
+            KeyCode keycode = keyEvent.getCode();
+            if (keycode.isLetterKey()) {
+                String letter = keycode.toString();
+                System.out.println(letter);
+                Button clickedButton = findButton(letter);
+                if (clickedButton != null) {
+                    clickedButton.fire();
+                }
+            }
+        }
+    }
+
+    private Button findButton(String letter) {
+        for (Button button : letterButtons) {
+            if (Character.toString(button.getId().charAt(0)).equalsIgnoreCase(letter)) {
+                return button;
+            }
+        }
+        return null;
     }
 }

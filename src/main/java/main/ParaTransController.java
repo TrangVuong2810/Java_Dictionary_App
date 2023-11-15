@@ -311,7 +311,6 @@ public class ParaTransController {
 
                     translationBuilder.append(parseTranslation(response.toString())).append(". ");
                 } else {
-                    System.out.println("PRINT TF OUT");
                     CustomAlert customAlert = new CustomAlert("TRANSLATION ERROR",
                             "Unable to connect to translate API\n Request fail with response" +
                             "code: " + responseCode + "\nPlease contact devs for more info", Alert.AlertType.ERROR);

@@ -25,6 +25,11 @@ public class Result {
         PieChart.Data correctData = new PieChart.Data("Correct", correctAnswers);
         PieChart.Data wrongData = new PieChart.Data("Wrong", wrongAnswers);
         PieChart.Data unansweredData = new PieChart.Data("Unanswered", unansweredQuestions);
+
         pieChart.getData().addAll(correctData, wrongData, unansweredData);
+
+        correctData.getNode().setStyle("-fx-pie-color: #8aa7ad;");
+        wrongData.getNode().setStyle("-fx-pie-color: #F68069;");
+        unansweredData.getNode().setStyle("-fx-pie-color: #FADC6F;");
     }
 }

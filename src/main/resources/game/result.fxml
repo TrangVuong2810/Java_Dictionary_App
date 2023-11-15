@@ -8,28 +8,34 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<StackPane alignment="TOP_LEFT" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.Result">
+<StackPane prefHeight="500.0" prefWidth="600.0" stylesheets="@../stylesheet/result.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.Result">
    <children>
-      <VBox prefHeight="200.0" prefWidth="100.0">
+      <VBox alignment="CENTER">
          <children>
-            <HBox prefHeight="177.0" prefWidth="560.0">
+            <HBox fx:id="congratsBox" alignment="CENTER" prefHeight="177.0" prefWidth="560.0">
                <children>
-                  <Label prefHeight="116.0" prefWidth="266.0" text="Congrats" />
+                  <Label fx:id="congratsLabel" alignment="CENTER" text="CONGRATULATIONS" textAlignment="CENTER" />
                </children>
             </HBox>
-            <HBox prefHeight="287.0" prefWidth="540.0" spacing="30.0">
+            <HBox fx:id="resultBox" prefHeight="287.0" prefWidth="540.0" spacing="30.0" VBox.vgrow="ALWAYS">
                <children>
-                  <VBox prefHeight="275.0" prefWidth="198.0" spacing="50.0" HBox.hgrow="ALWAYS">
+                  <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="250.0" spacing="50.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Label fx:id="corrects" text="Score:">
+                        <Label fx:id="corrects" prefWidth="200.0" styleClass="normal" text="Score:" VBox.vgrow="ALWAYS">
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>
+                           <padding>
+                              <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                           </padding>
                         </Label>
-                        <Label fx:id="totalTimer" text="Total Timer" />
+                        <Label fx:id="totalTimer" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" styleClass="normal" text="Total Timer" VBox.vgrow="ALWAYS">
+                           <padding>
+                              <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                           </padding></Label>
                      </children>
                      <HBox.margin>
-                        <Insets top="20.0" />
+                        <Insets />
                      </HBox.margin>
                   </VBox>
                   <PieChart fx:id="pieChart" prefHeight="275.0" prefWidth="266.0" HBox.hgrow="ALWAYS" />
@@ -38,7 +44,4 @@
          </children>
       </VBox>
    </children>
-   <padding>
-      <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
-   </padding>
 </StackPane>

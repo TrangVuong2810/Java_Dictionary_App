@@ -1,0 +1,34 @@
+.h1 {
+    -fx-font-size: 30px;
+}
+
+.h2 {
+    -fx-font-size: 25px;
+}
+
+.normal {
+    -fx-font-size: 20px;
+}
+
+.small {
+    -fx-font-size: 14.5px;
+}
+
+#congratsBox {
+    -fx-background-image: url(../media/apple.png);
+}
+
+#congratsLabel {
+    -fx-font-weight: bold;
+    -fx-font-size: 40px;
+}
+
+#resultBox {
+    -fx-background-color: #c8d9dd;
+}
+
+#corrects, #totalTimer {
+    -fx-background-color: #8aa7ad;
+    -fx-text-fill: white;
+    -fx-background-radius: 10px;
+}

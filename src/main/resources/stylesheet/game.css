@@ -8,6 +8,22 @@
     -fx-background-radius: 10px;
 }
 
+.h1 {
+    -fx-font-size: 30px;
+}
+
+.h2 {
+    -fx-font-size: 25px;
+}
+
+.normal {
+    -fx-font-size: 20px;
+}
+
+.small {
+    -fx-font-size: 14.5px;
+}
+
 .split-pane-divider {
     -fx-background-color: transparent;
 }
@@ -56,11 +72,11 @@
     -fx-background-color: white;
 }
 
-.table-row-cell:hover {
+.table-row-hover {
     -fx-background-color: #c8d9dd;
 }
 
-.table-row-cell:selected {
+.table-row-cell:selected .table-cell{
     -fx-background-color: #8aa7ad;
 }
 

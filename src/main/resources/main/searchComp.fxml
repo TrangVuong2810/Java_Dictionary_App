@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.*?>
 <?import javafx.geometry.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<SplitPane fx:id="searchComp" dividerPositions="0.3" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" stylesheets="@../stylesheet/searchComp.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.SearchCompController">
+<SplitPane fx:id="searchComp" dividerPositions="0.3" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" stylesheets="@../stylesheet/searchComp.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.SearchCompController">
    <items>
       <VBox fx:id="wordSearch" prefWidth="200.0">
          <children>
-            <HBox>
+            <HBox alignment="CENTER_LEFT">
                <children>
                   <Button ellipsisString="" mnemonicParsing="false" HBox.hgrow="ALWAYS">
                      <graphic>
@@ -22,9 +19,9 @@
                            </image>
                         </ImageView>
                      </graphic></Button>
-                  <TextField fx:id="textField" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
+                  <TextField fx:id="textField" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="small" HBox.hgrow="ALWAYS" />
                </children></HBox>
-            <ListView fx:id="listView" nodeOrientation="LEFT_TO_RIGHT" VBox.vgrow="ALWAYS">
+            <ListView fx:id="listView" nodeOrientation="LEFT_TO_RIGHT" styleClass="small" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>

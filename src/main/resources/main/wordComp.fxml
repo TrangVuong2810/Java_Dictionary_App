@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.*?>
 <?import javafx.geometry.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox id="wordComp" fx:id="wordComp" maxWidth="1.7976931348623157E308" minWidth="500.0" stylesheets="@../stylesheet/wordComp.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.WordCompController">
+<VBox id="wordComp" fx:id="wordComp" maxWidth="1.7976931348623157E308" minWidth="500.0" stylesheets="@../stylesheet/wordComp.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.WordCompController">
    <children>
       <HBox spacing="10.0" VBox.vgrow="ALWAYS">
          <children>
@@ -39,11 +36,11 @@
                </tooltip></Button>
          </children>
       </HBox>
-      <Label fx:id="wordLabel">
+      <Label fx:id="wordLabel" styleClass="h1">
          <VBox.margin>
             <Insets bottom="10.0" left="10.0" top="75.0" />
          </VBox.margin></Label>
-      <HBox prefWidth="200.0" VBox.vgrow="ALWAYS">
+      <HBox alignment="CENTER_LEFT" prefWidth="200.0" VBox.vgrow="ALWAYS">
          <children>
             <Button fx:id="wordPronunButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0">
                <graphic>
@@ -56,7 +53,7 @@
                <tooltip>
                   <Tooltip text="Pronounce" />
                </tooltip></Button>
-            <TextField fx:id="ipaLabel" HBox.hgrow="ALWAYS" />
+            <TextField fx:id="ipaLabel" editable="false" styleClass="normal" HBox.hgrow="ALWAYS" />
          </children>
          <VBox.margin>
             <Insets bottom="20.0" left="10.0" top="20.0" />
@@ -64,10 +61,10 @@
       </HBox>
       <VBox VBox.vgrow="ALWAYS">
          <children>
-            <Label fx:id="wordTypeLabel" VBox.vgrow="ALWAYS" />
-            <TextArea id="wordMeaning" fx:id="wordMeaning" editable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" stylesheets="@../stylesheet/wordComp.css" wrapText="true" VBox.vgrow="ALWAYS" />
-            <Label fx:id="wordSynonymLabel" text="Synonyms" />
-            <TextArea fx:id="wordSynonym" editable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" wrapText="true" />
+            <Label fx:id="wordTypeLabel" styleClass="h2" VBox.vgrow="ALWAYS" />
+            <TextArea id="wordMeaning" fx:id="wordMeaning" editable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="normal" stylesheets="@../stylesheet/wordComp.css" wrapText="true" VBox.vgrow="ALWAYS" />
+            <Label fx:id="wordSynonymLabel" styleClass="h2" text="Synonyms" />
+            <TextArea fx:id="wordSynonym" editable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="normal" wrapText="true" />
          </children>
          <VBox.margin>
             <Insets bottom="30.0" left="10.0" top="10.0" />

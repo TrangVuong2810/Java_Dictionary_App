@@ -10,7 +10,7 @@
 
 <VBox fx:id="inputWord" alignment="CENTER" prefHeight="500.0" prefWidth="700.0" stylesheets="@../stylesheet/inputWord.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.InputWordController">
    <children>
-      <Label fx:id="wordLabel" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
+      <Label fx:id="wordLabel" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="h1" VBox.vgrow="ALWAYS">
          <VBox.margin>
             <Insets left="20.0" right="20.0" top="60.0" />
          </VBox.margin>
@@ -19,7 +19,7 @@
          <children>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0" VBox.vgrow="ALWAYS">
                <children>
-                  <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="English Word" wrapText="true" HBox.hgrow="ALWAYS">
+                  <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity" styleClass="h2" text="English Word" wrapText="true" HBox.hgrow="ALWAYS">
                      <HBox.margin>
                         <Insets left="30.0" />
                      </HBox.margin></Label>
@@ -35,7 +35,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0" VBox.vgrow="ALWAYS">
                <children>
-                  <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Meaning" wrapText="true" HBox.hgrow="ALWAYS">
+                  <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity" styleClass="h2" text="Meaning" wrapText="true" HBox.hgrow="ALWAYS">
                      <HBox.margin>
                         <Insets left="30.0" />
                      </HBox.margin></Label>
@@ -51,11 +51,11 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0" VBox.vgrow="ALWAYS">
                <children>
-                  <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Word Type" wrapText="true" HBox.hgrow="ALWAYS">
+                  <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="h2" text="Word Type" wrapText="true" HBox.hgrow="ALWAYS">
                      <HBox.margin>
                         <Insets left="30.0" />
                      </HBox.margin></Label>
-                  <Region HBox.hgrow="ALWAYS" />
+                  <Region maxHeight="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
                   <TextField fx:id="wordTypeInput" maxWidth="-Infinity" minWidth="300.0" HBox.hgrow="ALWAYS">
                      <HBox.margin>
                         <Insets right="30.0" />
@@ -67,7 +67,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0" VBox.vgrow="ALWAYS">
                <children>
-                  <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="IPA" wrapText="true" HBox.hgrow="ALWAYS">
+                  <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="h2" text="IPA" wrapText="true" HBox.hgrow="ALWAYS">
                      <HBox.margin>
                         <Insets left="30.0" />
                      </HBox.margin></Label>
@@ -83,7 +83,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0" VBox.vgrow="ALWAYS">
                <children>
-                  <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Synonym" wrapText="true" HBox.hgrow="ALWAYS">
+                  <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="h2" text="Synonym" wrapText="true" HBox.hgrow="ALWAYS">
                      <HBox.margin>
                         <Insets left="30.0" />
                      </HBox.margin>

@@ -2,3 +2,19 @@
     -fx-background-color: white;
     -fx-background-radius: 10px;
 }
+
+.h1 {
+    -fx-font-size: 30px;
+}
+
+.h2 {
+    -fx-font-size: 25px;
+}
+
+.normal {
+    -fx-font-size: 20px;
+}
+
+.small {
+    -fx-font-size: 14.5px;
+}

@@ -7,6 +7,22 @@
     visibility: hidden;
 }
 
+.h1 {
+    -fx-font-size: 30px;
+}
+
+.h2 {
+    -fx-font-size: 25px;
+}
+
+.normal {
+    -fx-font-size: 15px;
+}
+
+.small {
+    -fx-font-size: 10px;
+}
+
 #wordSynonymLabel.active,
 #wordPronunButton.active,
 #wordBookmarkButton.active,

@@ -85,11 +85,14 @@ public class WordCompController {
                 ipaLabel.setText(ipa);
                 wordMeaning.setText(meaning);
                 wordTypeLabel.setText(wordType);
-                if (synonyms.isEmpty()) {
+                if (synonyms == null || synonyms.isEmpty()) {
                     wordSynonym.setText("Không tìm thấy từ đồng nghĩa cho từ này");
                 } else {
                     wordSynonym.setText(synonyms);
                 }
+
+
+                wordHistory.add(selectedWord);
             } else {
                 ipaLabel.setText("Không tìm thấy phát âm cho từ này");
                 wordMeaning.setText("Không tìm thấy nghĩa cho từ này.");
@@ -143,16 +146,34 @@ public class WordCompController {
         }
     }
 
+    public void resetStyle() {
+        wordSynonymLabel.getStyleClass().removeAll("active");
+        wordPronunButton.getStyleClass().removeAll("active");
+        wordBookmarkButton.getStyleClass().removeAll("active");
+        wordEditButton.getStyleClass().removeAll("active");
+        wordDeleteButton.getStyleClass().removeAll("active");
+    }
+
     public void deleteWord(String selectedWord) {
         wordTrie.delete(selectedWord);
+        resetStyle();
+        wordLabel.setText("");
+        ipaLabel.clear();
+        wordTypeLabel.setText("");
+        wordMeaning.clear();
+        wordSynonym.clear();
         Thread deleteWordInHistory = new Thread(() -> {
                 if (wordHistory.contains(selectedWord)) {
-                    wordHistory.delete(selectedWord);
+                    Platform.runLater(() -> {
+                        wordHistory.delete(selectedWord);
+                    });
                 }
             });
         Thread deleteWordInBookmark = new Thread(() -> {
                 if (wordBookmark.contains(selectedWord)) {
-                    wordBookmark.delete(selectedWord);
+                    Platform.runLater(() -> {
+                        wordBookmark.delete(selectedWord);
+                    });
                 }
             });
         deleteWordInHistory.start();

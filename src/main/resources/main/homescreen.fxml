@@ -74,7 +74,7 @@
    <center>
       <StackPane fx:id="mainPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
          <children>
-            <Label contentDisplay="CENTER" text="WELCOME TO THE DICTIONARY APPLICATION" textAlignment="CENTER" StackPane.alignment="CENTER">
+            <Label contentDisplay="CENTER" styleClass="h1" text="WELCOME TO THE DICTIONARY APPLICATION" textAlignment="CENTER" StackPane.alignment="CENTER">
                <font>
                   <Font size="20.0" />
                </font>
