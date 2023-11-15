@@ -13,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -44,10 +45,6 @@ public class Game {
     @FXML
     private Tooltip nextBtnTooltip;
 
-    public Button getNextBtn() {
-        return this.nextBtn;
-    }
-
     public void quizGame() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("quiz.fxml"));
@@ -64,6 +61,11 @@ public class Game {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("hangman.fxml"));
             hangManScene = fxmlLoader.load();
             hangman = fxmlLoader.getController();
+            hangManScene.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+                if (!event.getCode().isLetterKey()) {
+                    event.consume();
+                }
+            });
             QuestionBox.getChildren().add(hangManScene);
         } catch (Exception e) {
             e.printStackTrace();

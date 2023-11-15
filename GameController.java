@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.input.MouseEvent;
@@ -192,11 +193,11 @@ public class GameController {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/game/gamescreen.fxml"));
             scene = new Scene(fxmlLoader.load());
-//            scene.setOnKeyPressed(keyEvent -> {
-//                if (keyEvent.getCode() == KeyCode.ENTER) {
-//                    game.getNextBtn().fire();
-//                }
-//            });
+            scene.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+                if (!event.getCode().isLetterKey()) {
+                    event.consume();
+                }
+            });
             game = fxmlLoader.getController();
         } catch (Exception e) {
             System.out.println("ERROR IN INIT");
