@@ -6,6 +6,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.SplitPane;
 
+import java.util.Set;
+
 import static main.DictionaryApplication.wordHistory;
 
 public class HistoryController {
@@ -33,4 +35,5 @@ public class HistoryController {
     public void search() {
         searchCompController.search(wordHistory);
     }
+
 }

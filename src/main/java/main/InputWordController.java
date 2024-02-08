@@ -10,6 +10,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Optional;
+import java.util.Set;
 
 import static main.DictionaryApplication.*;
 

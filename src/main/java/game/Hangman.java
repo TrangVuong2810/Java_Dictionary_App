@@ -52,16 +52,12 @@ public class Hangman extends MyGame {
                 , aBtn, sBtn, dBtn, fBtn, gBtn, hBtn, jBtn, kBtn, lBtn
                 , zBtn, xBtn, cBtn, vBtn, bBtn, nBtn, mBtn));
         wrongGuessCount = 0;
-        for (Button button : letterButtons) {
-            button.setOnKeyPressed(new KeyPressHandler());
-        }
         getTotalQuestion();
         updateQuestion();
     }
 
     public void updateQuestion() {
         setDisable(false);
-        setFocus();
         wrongGuessCount = 0;
         String wordToGuess = doubleQuestion.get(currentQuestionIndex).getWord_target();
         currentWordState = createHiddenWord(wordToGuess);
@@ -71,15 +67,9 @@ public class Hangman extends MyGame {
             questionLabel.setText("Từ mang nghĩa '" + meaning + "'");
         } else {
             String ipa = doubleQuestion.get(currentQuestionIndex).getIpa();
-            questionLabel.setText("Từ có phát âm: /" + ipa + "/");
+            questionLabel.setText("Từ có phát âm: " + ipa);
         }
         blankLabel.setText(currentWordState);
-    }
-
-    public void setFocus() {
-        for (Button button : letterButtons) {
-            button.requestFocus();
-        }
     }
 
     public void setDisable(boolean isDisabled) {
@@ -162,29 +152,5 @@ public class Hangman extends MyGame {
         } else {
             return WWordStatus.INCORRECT;
         }
-    }
-
-    private class KeyPressHandler implements EventHandler<KeyEvent> {
-        @Override
-        public void handle(KeyEvent keyEvent) {
-            KeyCode keycode = keyEvent.getCode();
-            if (keycode.isLetterKey()) {
-                String letter = keycode.toString();
-                System.out.println(letter);
-                Button clickedButton = findButton(letter);
-                if (clickedButton != null) {
-                    clickedButton.fire();
-                }
-            }
-        }
-    }
-
-    private Button findButton(String letter) {
-        for (Button button : letterButtons) {
-            if (Character.toString(button.getId().charAt(0)).equalsIgnoreCase(letter)) {
-                return button;
-            }
-        }
-        return null;
     }
 }

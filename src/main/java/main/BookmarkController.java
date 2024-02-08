@@ -6,6 +6,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.SplitPane;
 
+import java.util.Set;
+
 import static main.DictionaryApplication.wordBookmark;
 
 public class BookmarkController {
@@ -33,4 +35,5 @@ public class BookmarkController {
     public void search() {
         searchCompController.search(wordBookmark);
     }
+
 }

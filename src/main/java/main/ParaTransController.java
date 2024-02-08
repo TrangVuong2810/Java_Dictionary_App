@@ -19,6 +19,7 @@ import java.net.*;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -290,10 +291,8 @@ public class ParaTransController {
                 connection.setRequestMethod("GET");
 
 
-                System.out.println("CHECK");
                 int responseCode = connection.getResponseCode();
-                System.out.println("HUHHHH");
-                System.out.println(responseCode);
+                System.out.println("RESPONSE CODE: " + responseCode);
                 if (responseCode == HttpURLConnection.HTTP_OK) {
                     InputStream inputStream = connection.getInputStream();
                     InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
@@ -303,7 +302,6 @@ public class ParaTransController {
                     while ((line = reader.readLine()) != null) {
                         response.append(line);
                     }
-                    System.out.println("WAIT WUT");
                     isTargetAudioAvailable = true;
                     reader.close();
                     inputStreamReader.close();

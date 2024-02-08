@@ -5,6 +5,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 
+import java.util.Set;
+
 public class EditWordController {
     @FXML
     private InputWordController inputWordController;
@@ -25,4 +27,5 @@ public class EditWordController {
     public void run(String selectedWord) {
         inputWordController.run(selectedWord);
     }
+
 }

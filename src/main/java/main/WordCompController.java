@@ -23,10 +23,7 @@ import java.sql.ResultSet;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.ArrayList;
-import java.util.Currency;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 import static main.DictionaryApplication.*;
 
@@ -314,7 +311,8 @@ public class WordCompController {
 //            while (resultSet.next()) {
 //                String word = resultSet.getString("word_target");
 //                String synonyms = resultSet.getString("synonyms");
-//                if (!synonyms.isEmpty()) {
+//                if (synonyms == null || synonyms.isEmpty() ||
+//                synonyms.trim().equals("Không tìm thấy từ đồng nghĩa cho từ này")) {
 //                    String insert = "UPDATE vocabulary SET synonyms = ? WHERE word_target = ?";
 //                    statement = connection.prepareStatement(insert);
 //                    statement.setString(1, wordCompController.getSynonym(word));
@@ -336,5 +334,4 @@ public class WordCompController {
 //            e.printStackTrace();
 //        }
 //    }
-
 }

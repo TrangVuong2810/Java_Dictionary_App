@@ -97,32 +97,49 @@ public class GameController {
                 event.consume();
             }
         });
+        listView.setCellFactory(param -> new ListCell<String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
 
+                if (empty || item == null) {
+                    setDisable(true);
+                    setText(null);
+                } else {
+                    setDisable(false);
+                    setText(item);
+                }
+            }
+        });
         listView.setOnMouseClicked(event -> {
             if (event.getClickCount() == 1 && cnt < MAX_QUES) {
                 String selectedWord = listView.getSelectionModel().getSelectedItem();
                 String meaning = "";
                 String ipa = "";
-                if (!checkDuplicate(selectedWord)){
-                    try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
-                        String sql = "SELECT * FROM vocabulary WHERE word_target = ?";
-                        PreparedStatement statement = connection.prepareStatement(sql);
-                        statement.setString(1, selectedWord);
-                        ResultSet resultSet = statement.executeQuery();
-                        if (resultSet.next()) {
-                            meaning = resultSet.getString("word_explain");
-                            ipa = resultSet.getString("ipa");
+                if (selectedWord != null) {
+                    if (!checkDuplicate(selectedWord) && !selectedWord.isEmpty()) {
+                        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
+                            String sql = "SELECT * FROM vocabulary WHERE word_target = ?";
+                            PreparedStatement statement = connection.prepareStatement(sql);
+                            statement.setString(1, selectedWord);
+                            ResultSet resultSet = statement.executeQuery();
+                            if (resultSet.next()) {
+                                meaning = resultSet.getString("word_explain");
+                                ipa = resultSet.getString("ipa");
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
-                    } catch (Exception e) {
-                        e.printStackTrace();
+
+                        Word w = new Word(selectedWord, meaning, ipa);
+                        QList.add(w);
+                        cnt++;
+                    } else if (checkDuplicate(selectedWord) && !selectedWord.isEmpty()) {
+                        Alert duplicateAlert = new Alert(Alert.AlertType.ERROR);
+                        duplicateAlert.setHeaderText("Trùng lặp từ!");
+                        duplicateAlert.setContentText("Không thể chọn từ này!");
+                        duplicateAlert.show();
                     }
-                    QList.add(new Word(selectedWord, meaning, ipa));
-                    cnt++;
-                } else {
-                    Alert duplicateAlert = new Alert(Alert.AlertType.ERROR);
-                    duplicateAlert.setHeaderText("Trùng lặp từ!");
-                    duplicateAlert.setContentText("Không thể chọn từ này!");
-                    duplicateAlert.show();
                 }
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -135,7 +152,7 @@ public class GameController {
 
     private boolean checkDuplicate(String newWord) {
         for (Word w : QList) {
-            if (w.getWord_target().equals(newWord)) {
+            if (w.getWord_target() != null && w.getWord_target().equals(newWord)) {
                 return true;
             }
         }
@@ -153,7 +170,7 @@ public class GameController {
 
     private void recurseNode(TrieNode node, String prefix, String currentWord,
                              List<String> words) {
-        if (node.isEndOfWord()) {
+        if (node.isEndOfWord() && currentWord.startsWith(prefix)) {
             words.add(currentWord);
         }
         for (Map.Entry<Character, TrieNode> entry : node.getChildren().entrySet()) {

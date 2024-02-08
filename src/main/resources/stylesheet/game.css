@@ -8,6 +8,14 @@
     -fx-background-radius: 10px;
 }
 
+.table-view .column-header {
+    -fx-font-size: 20px;
+}
+
+.table-view .table-cell {
+    -fx-font-size: 15px;
+}
+
 .h1 {
     -fx-font-size: 30px;
 }
@@ -41,11 +49,11 @@
     -fx-background-radius: 10px;
 }
 
-.list-view .scroll-bar:vertical {
+.list-view .scroll-bar {
     -fx-background-color: transparent;
 }
 
-.list-view .scroll-bar:vertical .thumb {
+.list-view .scroll-bar .thumb {
     -fx-background-color: #8aa7ad;
 }
 

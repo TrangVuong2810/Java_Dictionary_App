@@ -128,8 +128,8 @@ public class Game {
             int minutes = secondsElapsed / 60;
             int seconds = secondsElapsed % 60;
             String time = String.format("%02d:%02d", minutes, seconds);
-            controller.setTotalTimer(time);
-            controller.setCorrects(getGame().correctAnswer + "/" + 2 * questionList.size());
+            controller.setTotalTimer("Time: " + time);
+            controller.setCorrects("Score: " + getGame().correctAnswer + "/" + 2 * questionList.size());
             int correctAnswer = getGame().correctAnswer;
             int wrongAnswer = getGame().wrongAnswer;
             int unAnsweredQuestion = 2 * questionList.size() - correctAnswer - wrongAnswer;

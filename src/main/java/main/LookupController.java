@@ -4,6 +4,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.SplitPane;
 
+import java.util.Set;
+
 import static main.DictionaryApplication.wordTrie;
 
 public class LookupController {
@@ -29,4 +31,5 @@ public class LookupController {
     public void search() {
         searchCompController.search(wordTrie);
     }
+
 }

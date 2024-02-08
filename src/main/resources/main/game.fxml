@@ -20,9 +20,9 @@
                            </image>
                         </ImageView>
                      </graphic></Button>
-                  <TextField fx:id="textField" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
+                  <TextField fx:id="textField" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="small" HBox.hgrow="ALWAYS" />
                </children></HBox>
-            <ListView fx:id="listView" nodeOrientation="LEFT_TO_RIGHT" VBox.vgrow="ALWAYS">
+            <ListView fx:id="listView" nodeOrientation="LEFT_TO_RIGHT" styleClass="small" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
